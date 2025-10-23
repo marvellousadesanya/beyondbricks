@@ -65,8 +65,12 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" onClick={(e) => handleNavClick(e, "/#home", true)}>
-              <img src={logo} alt="BeyondBricks" className="w-full h-12" />
+            <a href="/" onClick={(e) => handleNavClick(e, "/home", true)}>
+              <img
+                src={logo}
+                alt="Beyond Bricks"
+                className="w-32 md:w-full  h-12"
+              />
             </a>
           </div>
 
