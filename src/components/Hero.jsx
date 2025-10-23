@@ -29,7 +29,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium mb-6 text-white animate-fade-in-up">
-          Beyond<span className="text-accent-gold">Bricks</span>
+          Beyond<span className="text-accent-gold"> Bricks</span>
         </h1>
         <p className="text-xl md:text-2xl lg:text-3xl mb-8 text-gray-200 font-light">
           Building Excellence, One Project at a Time
@@ -41,7 +41,7 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#contact"
-            className="group bg-accent-gold text-primary-dark px-8 py-4 font-medium hover:bg-yellow-500 transition-all duration-200 flex items-center gap-2 text-lg">
+            className="group bg-accent-gold text-primary-dark px-5 py-3 font-medium hover:bg-yellow-500 transition-all duration-200 flex items-center gap-2 text-md">
             Start Your Project
             <ArrowRight
               className="group-hover:translate-x-1 transition-transform"
