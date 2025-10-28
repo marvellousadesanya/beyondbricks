@@ -43,7 +43,13 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-primary-dark p-10 shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+              className={`bg-primary-dark p-10 shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 animate-fade-in-scale ${
+                index === 0
+                  ? "animate-delay-100"
+                  : index === 1
+                  ? "animate-delay-200"
+                  : "animate-delay-300"
+              }`}>
               {/* Title */}
               <h3 className="text-2xl font-medium text-white mb-4 group-hover:text-accent-gold transition-colors duration-300">
                 {service.title}

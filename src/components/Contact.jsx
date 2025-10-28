@@ -9,37 +9,80 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    // Clear error when user starts typing
+    if (error) setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Placeholder for form submission logic
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", phone: "", message: "" });
-    }, 3000);
+    setIsSubmitting(true);
+    setError("");
+
+    // TODO: Replace with your actual Web3Forms access key
+    // Get it from: https://web3forms.com (enter builder@beyondbricks.ng)
+    const WEB3FORMS_ACCESS_KEY = "c29a8535-39f3-43e0-8a30-517748d498c7";
+
+    const submissionData = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: formData.message,
+      subject: "New Contact Form Submission - BeyondBricks",
+      from_name: "BeyondBricks Website",
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Show success message
+        setIsSubmitted(true);
+        setFormData({ name: "", email: "", phone: "", message: "" });
+
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 5000);
+      } else {
+        setError("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setError("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: <Phone size={24} />,
       title: "Phone",
-      content: "+234 XXX XXX XXXX",
-      link: "tel:+234XXXXXXXXXX",
+      content: "+234 907 222 2444",
+      link: "tel:+2349072222444",
     },
     {
       icon: <Mail size={24} />,
       title: "Email",
-      content: "info@beyondbricks.ng",
-      link: "mailto:info@beyondbricks.ng",
+      content: "builder@beyondbricks.ng",
+      link: "mailto:builder@beyondbricks.ng",
     },
     {
       icon: <MapPin size={24} />,
@@ -134,6 +177,12 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Error Message */}
+                {error && (
+                  <div className="bg-red-500/10 border border-red-500 p-4 text-center">
+                    <p className="text-red-500 font-light">{error}</p>
+                  </div>
+                )}
                 {/* Name */}
                 <div>
                   <label
@@ -211,8 +260,9 @@ const Contact = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-accent-gold text-primary-dark px-8 py-4 font-medium hover:bg-yellow-500 transition-all duration-200 flex items-center justify-center gap-2 group">
-                  Send Message
+                  disabled={isSubmitting}
+                  className="w-full bg-accent-gold text-primary-dark px-8 py-4 font-medium hover:bg-yellow-500 transition-all duration-200 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed">
+                  {isSubmitting ? "Sending..." : "Send Message"}
                   <Send
                     size={20}
                     className="group-hover:translate-x-1 transition-transform"

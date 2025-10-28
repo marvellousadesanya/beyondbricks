@@ -40,10 +40,16 @@ const Testimonials = () => {
 
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
+          {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="bg-secondary-dark p-8 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-800 hover:border-accent-gold relative">
+              className={`bg-secondary-dark p-8 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-800 hover:border-accent-gold relative animate-fade-in-scale ${
+                index === 0
+                  ? "animate-delay-100"
+                  : index === 1
+                  ? "animate-delay-200"
+                  : "animate-delay-300"
+              }`}>
               {/* Quote Icon */}
               <div className="absolute top-6 right-6 text-accent-gold opacity-20">
                 <Quote size={48} />

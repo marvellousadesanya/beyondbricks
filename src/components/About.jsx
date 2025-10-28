@@ -15,15 +15,15 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left side - Image */}
           <div className="relative">
-            <div className="aspect-[4/3] overflow-hidden">
+            <div className="aspect-[4/3] overflow-hidden animate-slide-in-left">
               {/* Placeholder image - replace with actual company image */}
               <img
                 src={aboutImage}
                 alt="BeyondBricks construction site"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 bg-accent-gold text-primary-dark p-8 shadow-xl hidden md:block">
+            <div className="absolute -bottom-6 -right-6 bg-accent-gold text-primary-dark p-8 shadow-xl hidden md:block animate-fade-in-scale animate-delay-300">
               <p className="text-4xl font-bold">10+</p>
               <p className="text-sm font-semibold">Years Building Lagos</p>
             </div>

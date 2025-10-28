@@ -69,7 +69,7 @@ const Navbar = () => {
               <img
                 src={logo}
                 alt="Beyond Bricks"
-                className="w-32 md:w-full  h-12"
+                className="w-32 md:w-full h-12 hover:scale-105 transition-transform duration-300"
               />
             </a>
           </div>

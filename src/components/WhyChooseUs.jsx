@@ -69,7 +69,13 @@ const WhyChooseUs = () => {
           {reasons.map((reason, index) => (
             <div
               key={index}
-              className="bg-white p-8 shadow-md hover:shadow-lg transition-all duration-300 group hover:-translate-y-1">
+              className={`bg-white p-8 shadow-md hover:shadow-lg transition-all duration-300 group hover:-translate-y-1 animate-fade-in-scale ${
+                index % 3 === 0
+                  ? "animate-delay-100"
+                  : index % 3 === 1
+                  ? "animate-delay-200"
+                  : "animate-delay-300"
+              }`}>
               {/* Icon */}
               <div className="text-accent-gold mb-4 group-hover:scale-110 transition-transform duration-300">
                 {reason.icon}

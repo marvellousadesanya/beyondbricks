@@ -90,16 +90,22 @@ const Projects = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group relative overflow-hidden shadow-md cursor-pointer transform transition-all duration-300 hover:scale-[1.02]">
+              className={`group relative overflow-hidden shadow-md cursor-pointer transform transition-all duration-300 hover:scale-[1.02] animate-fade-in-scale ${
+                index % 3 === 0
+                  ? "animate-delay-100"
+                  : index % 3 === 1
+                  ? "animate-delay-200"
+                  : "animate-delay-300"
+              }`}>
               {/* Project Image */}
               <div className="aspect-square overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1"
                 />
               </div>
 
