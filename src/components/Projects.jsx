@@ -24,7 +24,7 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: "Project 2",
+      title: "Contessina",
       category: "Commercial",
       image: project2,
     },
@@ -36,7 +36,7 @@ const Projects = () => {
     },
     {
       id: 4,
-      title: "Project 4",
+      title: "Contessina",
       category: "Commercial",
       image: project4,
     },
