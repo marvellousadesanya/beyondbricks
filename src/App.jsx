@@ -6,6 +6,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import HomePage from "./pages/HomePage";
 import ContactPage from "./pages/ContactPage";
 import ProjectsPage from "./pages/ProjectsPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +40,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/project/:id" element={<ProjectDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
         <Footer />

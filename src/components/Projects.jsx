@@ -1,76 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ExternalLink } from "lucide-react";
-import project1 from "../assets/project-1.jpeg";
-import project2 from "../assets/project-2.jpeg";
-import project3 from "../assets/project-3.avif";
-import project4 from "../assets/project-4.jpeg";
-import project5 from "../assets/project-5.jpeg";
-import project6 from "../assets/project-6.jpeg";
-import project7 from "../assets/project-7.jpeg";
-import project8 from "../assets/project-8.jpeg";
-import project9 from "../assets/project-9.jpeg";
+import { projects } from "../data/projects";
 
 const Projects = () => {
   const navigate = useNavigate();
 
-  // Placeholder project data - replace with actual project images
-  const projects = [
-    {
-      id: 1,
-      title: "Project 1",
-      category: "Residential",
-      image: project1,
-    },
-    {
-      id: 2,
-      title: "Contessina",
-      category: "Commercial",
-      image: project2,
-    },
-    {
-      id: 3,
-      title: "Project 3",
-      category: "Residential",
-      image: project3,
-    },
-    {
-      id: 4,
-      title: "Contessina",
-      category: "Commercial",
-      image: project4,
-    },
-    {
-      id: 5,
-      title: "Project 5",
-      category: "Residential",
-      image: project5,
-    },
-    {
-      id: 6,
-      title: "Project 6",
-      category: "Industrial",
-      image: project6,
-    },
-    {
-      id: 7,
-      title: "Project 7",
-      category: "Hospitality",
-      image: project7,
-    },
-    {
-      id: 8,
-      title: "Project 8",
-      category: "Institutional",
-      image: project8,
-    },
-    {
-      id: 9,
-      title: "Project 9",
-      category: "Commercial",
-      image: project9,
-    },
-  ];
+  // Get first 9 projects for homepage
+  const displayedProjects = projects.slice(0, 6);
 
   return (
     <section id="projects" className="py-20 md:py-32 bg-primary-dark">
@@ -90,9 +26,10 @@ const Projects = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <div
               key={project.id}
+              onClick={() => navigate(`/project/${project.id}`)}
               className={`group relative overflow-hidden shadow-md cursor-pointer transform transition-all duration-300 hover:scale-[1.02] animate-fade-in-scale ${
                 index % 3 === 0
                   ? "animate-delay-100"
@@ -103,7 +40,7 @@ const Projects = () => {
               {/* Project Image */}
               <div className="aspect-square overflow-hidden">
                 <img
-                  src={project.image}
+                  src={project.thumbnail}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1"
                 />
