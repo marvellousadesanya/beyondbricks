@@ -2,30 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom scrollbar styling */
-::-webkit-scrollbar {
-  width: 10px;
-}
+/* ─────────────────────────────────────────────
+   CUSTOM SCROLLBAR
+───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1a1a1a; }
+::-webkit-scrollbar-thumb { background: #f4b942; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #d9a539; }
 
-::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
+html { scroll-behavior: smooth; }
 
-::-webkit-scrollbar-thumb {
-  background: #f4b942;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #d9a539;
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Base styles */
 body {
   margin: 0;
   padding: 0;
@@ -36,110 +22,260 @@ body {
   color: #ffffff;
 }
 
-/* Animation utilities */
+/* ─────────────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────────── */
+
+/* Hero title pop */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Generic fade */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
+/* Cards / elements scale in */
 @keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
 }
 
+/* Slide from left */
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
+/* Slide from right */
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out;
+/* Slide from below (for stagger children) */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
+/* Gold shimmer sweep across text/borders */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
 }
 
-.animate-fade-in-scale {
-  animation: fadeInScale 0.8s ease-out;
+/* Pulsing glow ring around CTA buttons */
+@keyframes pulseRing {
+  0%   { transform: scale(1);    opacity: 0.6; }
+  70%  { transform: scale(1.5);  opacity: 0; }
+  100% { transform: scale(1.5);  opacity: 0; }
 }
 
-.animate-slide-in-left {
-  animation: slideInLeft 0.8s ease-out;
+/* Subtle float for decorative elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
 }
 
-.animate-slide-in-right {
-  animation: slideInRight 0.8s ease-out;
+/* Counter count-up glow */
+@keyframes countGlow {
+  0%   { text-shadow: 0 0 0px #f4b942; }
+  50%  { text-shadow: 0 0 20px #f4b94299; }
+  100% { text-shadow: 0 0 0px #f4b942; }
 }
 
-/* Stagger animation delays for grid items */
-.animate-delay-100 {
-  animation-delay: 0.1s;
+/* Horizontal line expand */
+@keyframes expandWidth {
+  from { width: 0; }
+  to   { width: 5rem; /* w-20 */ }
 }
 
-.animate-delay-200 {
-  animation-delay: 0.2s;
+/* Icon bouncing on hover */
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40%       { transform: translateY(-6px) scale(1.15); }
+  60%       { transform: translateY(-3px) scale(1.08); }
 }
 
-.animate-delay-300 {
-  animation-delay: 0.3s;
-}
+/* ─────────────────────────────────────────────
+   ANIMATION UTILITY CLASSES
+   (used on elements BEFORE they enter view;
+    toggled via .in-view to trigger)
+───────────────────────────────────────────── */
 
-.animate-delay-400 {
-  animation-delay: 0.4s;
-}
-
-.animate-delay-500 {
-  animation-delay: 0.5s;
-}
-
-.animate-delay-600 {
-  animation-delay: 0.6s;
-}
-
-/* Initially hidden elements for scroll animations */
-.animate-on-scroll {
+/* Default hidden state */
+.reveal {
   opacity: 0;
+  transition: none; /* JS / observer drives this */
 }
 
-.animate-on-scroll.animated {
-  opacity: 1;
+/* ── Slide up */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.reveal-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Slide in from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Slide in from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Scale + fade */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-scale.in-view {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* ── Stagger delays */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+.delay-600 { transition-delay: 0.6s; }
+.delay-700 { transition-delay: 0.7s; }
+.delay-800 { transition-delay: 0.8s; }
+
+/* ─────────────────────────────────────────────
+   GLOBAL HERO ANIMATIONS (fire on mount)
+───────────────────────────────────────────── */
+.animate-fade-in-up {
+  animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out both;
+}
+.animate-fade-in-scale {
+  animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-slide-in-left {
+  animation: slideInLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-slide-in-right {
+  animation: slideInRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Legacy stagger delays */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+.animate-delay-600 { animation-delay: 0.6s; }
+
+/* ─────────────────────────────────────────────
+   BUTTON GLOW / PULSE RING
+───────────────────────────────────────────── */
+.btn-glow {
+  position: relative;
+  overflow: visible;
+}
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: transparent;
+  border: 2px solid #f4b942;
+  animation: pulseRing 2.2s ease-out infinite;
+  pointer-events: none;
+}
+
+/* Gold shimmer on hover */
+.btn-shimmer {
+  background-size: 200% auto;
+  transition: background-position 0.5s ease, filter 0.3s;
+}
+.btn-shimmer:hover {
+  background-image: linear-gradient(
+    90deg,
+    #f4b942 0%,
+    #ffe08a 40%,
+    #f4b942 60%,
+    #d9a539 100%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.2s linear infinite;
+  filter: brightness(1.1);
+}
+
+/* ─────────────────────────────────────────────
+   ICON FLOAT
+───────────────────────────────────────────── */
+.icon-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────
+   GOLD DIVIDER EXPAND
+───────────────────────────────────────────── */
+.divider-expand {
+  width: 0;
+  height: 4px;
+  background: #f4b942;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.divider-expand.in-view {
+  width: 5rem;
+}
+
+/* ─────────────────────────────────────────────
+   CARD HOVER LIFT + GLOW
+───────────────────────────────────────────── */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(244, 185, 66, 0.12),
+              0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ─────────────────────────────────────────────
+   STAT NUMBER COUNT GLOW
+───────────────────────────────────────────── */
+.stat-glow.in-view {
+  animation: countGlow 2s ease 0.5s both;
+}
+
+/* ─────────────────────────────────────────────
+   LEGACY (kept for compat)
+───────────────────────────────────────────── */
+.animate-on-scroll { opacity: 0; }
+.animate-on-scroll.animated { opacity: 1; }

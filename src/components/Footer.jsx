@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Facebook,
   Twitter,
@@ -11,14 +12,16 @@ import {
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const quickLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About Us", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Services", href: "#services" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/#home", isSection: true },
+    { name: "About Us", href: "/#about", isSection: true },
+    { name: "Projects", href: "/projects", isSection: false },
+    { name: "Services", href: "/#services", isSection: true },
+    { name: "Testimonials", href: "/#testimonials", isSection: true },
+    { name: "Contact", href: "/contact", isSection: false },
   ];
 
   const services = [
@@ -36,11 +39,30 @@ const Footer = () => {
     { icon: <Linkedin size={20} />, href: "#", label: "LinkedIn" },
   ];
 
-  const scrollToSection = (e, href) => {
+  const handleLinkClick = (e, href, isSection) => {
     e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+
+    if (!isSection) {
+      // Navigate to a dedicated page route
+      navigate(href);
+    } else if (location.pathname === "/") {
+      // Already on homepage — just scroll to the section
+      const sectionId = href.split("#")[1];
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // On another page — navigate home first, then scroll
+      const sectionId = href.split("#")[1];
+      navigate("/");
+      // Use a slightly longer delay to let the homepage fully render
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 300);
     }
   };
 
@@ -80,7 +102,7 @@ const Footer = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    onClick={(e) => scrollToSection(e, link.href)}
+                    onClick={(e) => handleLinkClick(e, link.href, link.isSection)}
                     className="text-gray-300 hover:text-accent-gold transition-colors duration-200 flex items-center">
                     <span className="mr-2">›</span>
                     {link.name}
@@ -97,8 +119,8 @@ const Footer = () => {
               {services.map((service, index) => (
                 <li key={index}>
                   <a
-                    href="#services"
-                    onClick={(e) => scrollToSection(e, "#services")}
+                    href="/#services"
+                    onClick={(e) => handleLinkClick(e, "/#services", true)}
                     className="text-gray-300 hover:text-accent-gold transition-colors duration-200 flex items-center">
                     <span className="mr-2">›</span>
                     {service}
