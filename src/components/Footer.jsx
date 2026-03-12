@@ -1,10 +1,8 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
-  Facebook,
-  Twitter,
+  Youtube,
   Instagram,
-  Linkedin,
   Mail,
   Phone,
   MapPin,
@@ -33,10 +31,8 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: <Facebook size={20} />, href: "#", label: "Facebook" },
-    { icon: <Twitter size={20} />, href: "#", label: "Twitter" },
-    { icon: <Instagram size={20} />, href: "#", label: "Instagram" },
-    { icon: <Linkedin size={20} />, href: "#", label: "LinkedIn" },
+    { icon: <Youtube size={20} />, href: "https://www.youtube.com/@bamithebuilder", label: "YouTube" },
+    { icon: <Instagram size={20} />, href: "https://www.instagram.com/bamithebuilder?igsh=eHRndXp4cHk1NTR6", label: "Instagram" },
   ];
 
   const handleLinkClick = (e, href, isSection) => {
@@ -87,6 +83,8 @@ const Footer = () => {
                   key={index}
                   href={social.href}
                   aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="bg-secondary-dark p-3 text-gray-300 hover:text-accent-gold hover:bg-accent-gold/10 transition-all duration-200">
                   {social.icon}
                 </a>
