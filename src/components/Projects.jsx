@@ -36,13 +36,13 @@ const Projects = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="md:max-w-2xl"
+            className="md:max-w-2xl px-4 md:px-0"
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight leading-none">
+            <h2 className="text-3xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight leading-none">
               Selected <span className="text-accent-gold">Landmarks</span>
             </h2>
-            <div className="w-24 h-1 bg-accent-gold mb-12 origin-left" />
-            <p className="text-base md:text-lg text-gray-400 font-light leading-relaxed">
+            <div className="w-16 md:w-24 h-1 bg-accent-gold mb-8 md:mb-12 origin-left" />
+            <p className="text-sm md:text-lg text-gray-400 font-light leading-relaxed">
               Explore our record of high-performance buildings and iconic structural masterpieces delivered across Nigeria.
             </p>
           </motion.div>
@@ -103,12 +103,12 @@ const Projects = () => {
               </div>
 
               {/* Info Overlay (Visible or Semi-Visible) */}
-              <div className="p-10 space-y-4">
-                <div className="flex justify-between items-center text-accent-gold uppercase tracking-[0.4em] text-[0.6rem] font-bold">
+              <div className="p-6 md:p-10 space-y-3 md:space-y-4">
+                <div className="flex justify-between items-center text-accent-gold uppercase tracking-[0.4em] text-[0.5rem] md:text-[0.6rem] font-bold">
                    <span>0{index + 1} / Project</span>
                    <span className="group-hover:translate-x-4 transition-transform duration-500">→</span>
                 </div>
-                <h3 className="text-2xl font-bold text-white uppercase tracking-tight group-hover:text-accent-gold transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl font-bold text-white uppercase tracking-tight group-hover:text-accent-gold transition-colors duration-300">
                   {project.title}
                 </h3>
               </div>

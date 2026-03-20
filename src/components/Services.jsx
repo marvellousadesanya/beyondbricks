@@ -60,25 +60,25 @@ const Services = () => {
       className="py-32 md:py-48 bg-secondary-dark relative overflow-hidden"
     >
       {/* Background Parallax Text */}
-      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.03] flex flex-col justify-center space-y-20">
-        <motion.h1 style={{ x: bgX1 }} className="text-[12rem] md:text-[20rem] font-bold text-white whitespace-nowrap uppercase tracking-tighter">
-          EXCELLENCE DURABILITY INNOVATION
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.03] flex flex-col justify-center space-y-10 md:space-y-20">
+        <motion.h1 style={{ x: bgX1 }} className="text-[6rem] md:text-[20rem] font-bold text-white whitespace-nowrap uppercase tracking-tighter">
+          EXCELLENCE INNOVATION
         </motion.h1>
-        <motion.h1 style={{ x: bgX2, WebkitTextStroke: '1px white' }} className="text-[12rem] md:text-[20rem] font-black text-transparent whitespace-nowrap uppercase tracking-tighter">
-          CONSTRUCTION EXPERTISE QUALITY
+        <motion.h1 style={{ x: bgX2, WebkitTextStroke: '1px white' }} className="text-[6rem] md:text-[20rem] font-black text-transparent whitespace-nowrap uppercase tracking-tighter">
+          CONSTRUCTION EXPERTISE
         </motion.h1>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-24 max-w-3xl mx-auto">
+        <div className="text-center mb-16 md:mb-24 max-w-3xl mx-auto">
           <motion.div
             variants={headerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight">
+            <h2 className="text-3xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight">
               Our <span className="text-accent-gold">Expertise</span>
             </h2>
             <div className="w-24 h-1 bg-accent-gold mx-auto mb-10 origin-left" />
@@ -149,18 +149,18 @@ const Services = () => {
           className="mt-32 p-1 relative rounded-3xl overflow-hidden group"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-accent-gold via-accent-gold/20 to-accent-gold opacity-10 group-hover:opacity-30 transition-opacity duration-700" />
-          <div className="bg-primary-dark/80 backdrop-blur-xl p-16 md:p-24 rounded-3xl relative z-10 text-center border border-white/5 overflow-hidden">
+          <div className="bg-primary-dark/80 backdrop-blur-xl p-8 md:p-24 rounded-3xl relative z-10 text-center border border-white/5 overflow-hidden">
              
              {/* Huge background "B" */}
-             <div className="absolute -top-20 -right-20 text-[30rem] font-black text-white/5 pointer-events-none select-none z-0">
+             <div className="absolute -top-20 -right-20 text-[15rem] md:text-[30rem] font-black text-white/5 pointer-events-none select-none z-0">
                B
              </div>
 
-             <div className="relative z-10 max-w-4xl mx-auto space-y-10">
-                <h3 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tight">
+             <div className="relative z-10 max-w-4xl mx-auto space-y-6 md:space-y-10">
+                <h3 className="text-2xl md:text-5xl font-bold text-white uppercase tracking-tight">
                   Ready to start your <span className="text-accent-gold">Legacy?</span>
                 </h3>
-                <p className="text-lg text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
+                <p className="text-base md:text-lg text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
                   Let’s discuss how our services can bring your vision into reality. Schedule a consultation session today.
                 </p>
                 

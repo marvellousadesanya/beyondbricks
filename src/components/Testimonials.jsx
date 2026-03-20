@@ -56,9 +56,9 @@ const Testimonials = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-24"
+          className="mb-12 md:mb-24 px-4"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight">
+          <h2 className="text-3xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight">
             Client <span className="text-accent-gold">Voices</span>
           </h2>
           <div className="w-24 h-1 bg-accent-gold mx-auto mb-10 origin-left" />
@@ -126,7 +126,7 @@ const Testimonials = () => {
               className="relative group p-8 rounded-2xl bg-secondary-dark/30 border border-white/5 hover:border-accent-gold/30 transition-all duration-500"
             >
               <motion.div 
-                 className="text-4xl md:text-6xl font-black text-accent-gold mb-3 tracking-tighter"
+                 className="text-3xl md:text-6xl font-black text-accent-gold mb-3 tracking-tighter"
                  whileHover={{ scale: 1.05 }}
               >
                 {stat.value}

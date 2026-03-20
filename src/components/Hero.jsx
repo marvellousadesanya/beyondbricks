@@ -121,8 +121,7 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          {/* Main Title with Letter Animation */}
-          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold text-white leading-[0.9] uppercase tracking-tighter">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold text-white leading-[0.9] uppercase tracking-tighter">
             <div className="flex flex-wrap justify-center overflow-hidden">
               {beyondLetters.map((letter, i) => (
                 <motion.span
@@ -150,11 +149,10 @@ const Hero = () => {
             </div>
           </h1>
 
-          {/* Subtitle */}
           <motion.p 
             variants={textVariants}
             custom={2}
-            className="text-base md:text-xl text-gray-400 font-light max-w-3xl mx-auto leading-relaxed mt-8"
+            className="text-sm sm:text-base md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed mt-6 md:mt-8 px-4"
           >
             Engineering the extraordinary. We take complex visions and <span className="text-white font-medium">transform them into iconic landmarks</span> across Nigeria.
           </motion.p>

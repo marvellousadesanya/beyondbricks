@@ -68,11 +68,11 @@ const WhyChooseUs = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight">
+            <h2 className="text-3xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight">
               The Beyond <span className="text-accent-gold">Edge</span>
             </h2>
-            <div className="w-24 h-1 bg-accent-gold mx-auto mb-10 origin-left" />
-            <p className="text-lg text-gray-400 font-light leading-relaxed">
+            <div className="w-16 md:w-24 h-1 bg-accent-gold mx-auto mb-8 md:mb-10 origin-left" />
+            <p className="text-sm md:text-lg text-gray-400 font-light leading-relaxed max-w-xl mx-auto">
               We go beyond building structures, we build legacies through unyielding integrity and a commitment to precision.
             </p>
           </motion.div>
@@ -91,7 +91,7 @@ const WhyChooseUs = () => {
               key={index}
               variants={itemVariants}
               whileHover={{ y: -5 }}
-              className="bg-secondary-dark/40 p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group border border-white/5 relative overflow-hidden rounded-3xl hover:border-accent-gold/40 transition-all duration-700"
+              className="bg-secondary-dark/40 p-6 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group border border-white/5 relative overflow-hidden rounded-3xl hover:border-accent-gold/40 transition-all duration-700"
             >
               {/* Background accent */}
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent-gold/0 to-transparent group-hover:via-accent-gold/30 transition-all duration-700" />
