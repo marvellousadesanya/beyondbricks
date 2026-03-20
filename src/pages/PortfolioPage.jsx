@@ -125,7 +125,7 @@ const PortfolioPage = () => {
   // Hero Parallax
   const heroRef = useRef(null);
   const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroY = useTransform(heroScroll, [0, 1], ["0%", "50%"]);
+  const heroY = useTransform(heroScroll, [0, 1], ["0%", "15%"]);
   const heroOpacity = useTransform(heroScroll, [0, 1], [1, 0]);
 
   // Background Text Parallax
@@ -222,8 +222,8 @@ const PortfolioPage = () => {
       </section>
 
       {/* About Me Section */}
-      <section ref={aboutRef} className="py-32 relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-800/40">
-        <div className="flex flex-col md:flex-row gap-16 items-center">
+      <section ref={aboutRef} className="py-32 mt-12 relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-800/40">
+        <div className="flex flex-col md:flex-row gap-16 items-start">
           <motion.div 
             className="w-full md:w-5/12"
             initial={{ opacity: 0, x: -40 }}
