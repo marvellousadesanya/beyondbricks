@@ -12,7 +12,7 @@ const About = () => {
     offset: ["start end", "end start"]
   });
 
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   const stats = [
@@ -40,13 +40,12 @@ const About = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.5)] bg-secondary-dark"
+              className="relative z-10 w-full rounded-2xl overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.5)] bg-secondary-dark"
             >
-              <motion.img
-                style={{ y: imgY }}
+              <img
                 src={aboutImage}
-                alt="BeyondBricks construction site"
-                className="w-full h-full object-cover scale-110"
+                alt="BeyondBricks team"
+                className="w-full h-auto block"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-transparent pointer-events-none" />
             </motion.div>
