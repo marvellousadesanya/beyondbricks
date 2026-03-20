@@ -1,136 +1,180 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ClipboardList, Settings, Wrench, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import useInView from "../hooks/useInView";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const Services = () => {
   const navigate = useNavigate();
-  const [headerRef, headerInView] = useInView(0.2);
-  const [cardsRef, cardsInView] = useInView(0.1);
-  const [ctaRef, ctaInView] = useInView(0.2);
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const bgX1 = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
+  const bgX2 = useTransform(scrollYProgress, [0, 1], ["-40%", "0%"]);
 
   const services = [
     {
-      icon: <ClipboardList size={44} />,
+      icon: <ClipboardList size={40} />,
+      index: "01 /",
       title: "Construction Planning",
       description:
         "Comprehensive planning services that lay the foundation for successful project execution. We analyze every detail, from feasibility studies to resource allocation, ensuring your project starts on solid ground.",
     },
     {
-      icon: <Settings size={44} />,
-      title: "Construction Management",
+      icon: <Settings size={40} />,
+      index: "02 /",
+      title: "Project Management",
       description:
         "End-to-end project management that keeps your construction on schedule and within budget. Our experienced team coordinates all aspects of construction, ensuring seamless execution and quality control.",
     },
     {
-      icon: <Wrench size={44} />,
+      icon: <Wrench size={40} />,
+      index: "03 /",
       title: "Building Maintenance",
       description:
         "Professional maintenance services to preserve and enhance your property's value. From routine inspections to repairs and renovations, we ensure your building remains in optimal condition.",
     },
   ];
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 30 },
+    visible: (i) => ({
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.6, delay: 0.2 + i * 0.15, ease: [0.16, 1, 0.3, 1] }
+    })
+  };
+
   return (
-    <section id="services" className="py-20 md:py-32 bg-secondary-dark relative overflow-hidden">
-      {/* Subtle background texture */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 80% 20%, rgba(244,185,66,0.04) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(244,185,66,0.03) 0%, transparent 50%)",
-        }}
-      />
+    <section 
+      id="services" 
+      ref={ref}
+      className="py-32 md:py-48 bg-secondary-dark relative overflow-hidden"
+    >
+      {/* Background Parallax Text */}
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.03] flex flex-col justify-center space-y-20">
+        <motion.h1 style={{ x: bgX1 }} className="text-[12rem] md:text-[20rem] font-bold text-white whitespace-nowrap uppercase tracking-tighter">
+          EXCELLENCE DURABILITY INNOVATION
+        </motion.h1>
+        <motion.h1 style={{ x: bgX2, WebkitTextStroke: '1px white' }} className="text-[12rem] md:text-[20rem] font-black text-transparent whitespace-nowrap uppercase tracking-tighter">
+          CONSTRUCTION EXPERTISE QUALITY
+        </motion.h1>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16" ref={headerRef}>
-          <h2 className={`text-4xl md:text-5xl font-semibold mb-4 text-white reveal-up ${headerInView ? "in-view" : ""}`}>
-            Our <span className="text-accent-gold">Services</span>
-          </h2>
-          <div className={`divider-expand mx-auto mb-6 ${headerInView ? "in-view" : ""}`} />
-          <p className={`text-lg text-gray-300 max-w-2xl mx-auto font-light reveal-up delay-200 ${headerInView ? "in-view" : ""}`}>
-            From initial planning to ongoing maintenance, we provide
-            comprehensive construction services tailored to your needs.
-          </p>
+        <div className="text-center mb-24 max-w-3xl mx-auto">
+          <motion.div
+            variants={headerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight">
+              Our <span className="text-accent-gold">Expertise</span>
+            </h2>
+            <div className="w-24 h-1 bg-accent-gold mx-auto mb-10 origin-left" />
+            <p className="text-base md:text-lg text-gray-400 font-light leading-relaxed">
+              From initial structural planning to ongoing white-glove maintenance, we provide elite construction solutions tailored for high-stakes projects.
+            </p>
+          </motion.div>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" ref={cardsRef}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`card-lift bg-primary-dark p-10 shadow-md group relative overflow-hidden reveal-scale ${
-                index === 0 ? "delay-100" : index === 1 ? "delay-300" : "delay-500"
-              } ${cardsInView ? "in-view" : ""}`}>
-
-              {/* Gold accent corner */}
-              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-accent-gold/60 via-accent-gold/20 to-transparent transition-all duration-500 group-hover:w-1.5" />
-
-              {/* Icon */}
-              <div className="text-accent-gold mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
-                {service.icon}
+              custom={index}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+              className="bg-primary-dark p-12 shadow-2xl group border border-white/5 relative overflow-hidden rounded-2xl hover:border-accent-gold/40 transition-all duration-500"
+            >
+              {/* Index Number */}
+              <div className="absolute top-8 right-8 text-white/5 text-8xl font-black italic tracking-tighter transition-all duration-700 group-hover:scale-125 group-hover:text-accent-gold/10 pointer-events-none select-none">
+                0{index + 1}
               </div>
 
-              {/* Title */}
-              <h3 className="text-2xl font-medium text-white mb-4 group-hover:text-accent-gold transition-colors duration-300">
-                {service.title}
-              </h3>
+              {/* Icon with Gold Circle Background */}
+              <div className="mb-10 relative">
+                <div className="w-20 h-20 rounded-full bg-accent-gold/5 flex items-center justify-center text-accent-gold group-hover:bg-accent-gold group-hover:text-primary-dark transition-all duration-700">
+                  {service.icon}
+                </div>
+              </div>
 
-              {/* Description */}
-              <p className="text-gray-400 leading-relaxed font-light mb-6">
-                {service.description}
-              </p>
+              {/* Text Content */}
+              <div className="space-y-6 relative z-10">
+                <p className="text-xs uppercase tracking-[0.4em] font-bold text-accent-gold">{service.index} Superior Quality</p>
+                <h3 className="text-xl font-bold text-white uppercase tracking-wide group-hover:text-accent-gold transition-colors">
+                  {service.title}
+                </h3>
+                <p className="text-gray-400 leading-relaxed font-light text-sm md:text-base">
+                  {service.description}
+                </p>
+              </div>
 
-              {/* Learn More */}
-              <a
-                href="/contact"
-                onClick={(e) => { e.preventDefault(); navigate("/contact"); }}
-                className="inline-flex items-center gap-1.5 text-accent-gold text-sm font-medium transition-all duration-200 group/link hover:gap-3">
-                Learn More
-                <ArrowRight size={15} className="transition-transform duration-200 group-hover/link:translate-x-1" />
-              </a>
+              {/* Bottom Interactive Link */}
+              <button 
+                onClick={() => navigate("/contact")}
+                className="mt-12 flex items-center gap-3 text-white font-bold uppercase tracking-widest text-xs group/btn transition-colors hover:text-accent-gold"
+              >
+                Inquire <ArrowRight size={16} className="group-hover/btn:translate-x-2 transition-transform duration-300" />
+              </button>
 
-              {/* Hover glow overlay */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                   style={{ background: "radial-gradient(circle at 50% 120%, rgba(244,185,66,0.04) 0%, transparent 60%)" }} />
-            </div>
+              {/* Animated Corner accent */}
+              <motion.div 
+                className="absolute top-0 left-0 w-2 h-0 bg-accent-gold transition-all duration-700 group-hover:h-full"
+              />
+            </motion.div>
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div
-          ref={ctaRef}
-          className={`mt-20 text-center py-16 px-8 border border-gray-700/50 relative overflow-hidden reveal-up ${ctaInView ? "in-view" : ""}`}
-          style={{ background: "rgba(244,185,66,0.03)" }}>
-          {/* Decorative lines */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-8 bg-gradient-to-b from-accent-gold/60 to-transparent" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-8 bg-gradient-to-t from-accent-gold/60 to-transparent" />
+        {/* High-Impact CTA Segment */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-32 p-1 relative rounded-3xl overflow-hidden group"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-accent-gold via-accent-gold/20 to-accent-gold opacity-10 group-hover:opacity-30 transition-opacity duration-700" />
+          <div className="bg-primary-dark/80 backdrop-blur-xl p-16 md:p-24 rounded-3xl relative z-10 text-center border border-white/5 overflow-hidden">
+             
+             {/* Huge background "B" */}
+             <div className="absolute -top-20 -right-20 text-[30rem] font-black text-white/5 pointer-events-none select-none z-0">
+               B
+             </div>
 
-          <h3 className={`text-3xl md:text-4xl font-medium text-white mb-4 reveal-up delay-100 ${ctaInView ? "in-view" : ""}`}>
-            Ready to Start Your Project?
-          </h3>
-          <p className={`text-gray-300 mb-8 max-w-2xl mx-auto text-lg font-light reveal-up delay-200 ${ctaInView ? "in-view" : ""}`}>
-            Let&apos;s discuss how our services can bring your construction vision to
-            life. Schedule a consultation with our experts today.
-          </p>
-
-          <div className={`relative inline-block group reveal-scale delay-300 ${ctaInView ? "in-view" : ""}`}>
-            <span
-              className="absolute inset-0 bg-accent-gold/20 pointer-events-none"
-              style={{ animation: "pulseRing 2.2s ease-out infinite" }}
-            />
-            <span
-              className="absolute inset-0 bg-accent-gold/10 pointer-events-none"
-              style={{ animation: "pulseRing 2.2s ease-out infinite 0.7s" }}
-            />
-            <a
-              href="/contact"
-              onClick={(e) => { e.preventDefault(); navigate("/contact"); }}
-              className="btn-shimmer relative z-10 inline-block bg-accent-gold text-primary-dark px-10 py-4 font-semibold transition-all duration-300 hover:shadow-[0_0_30px_rgba(244,185,66,0.4)]">
-              Schedule a Consultation
-            </a>
+             <div className="relative z-10 max-w-4xl mx-auto space-y-10">
+                <h3 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tight">
+                  Ready to start your <span className="text-accent-gold">Legacy?</span>
+                </h3>
+                <p className="text-lg text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
+                  Let’s discuss how our services can bring your vision into reality. Schedule a consultation session today.
+                </p>
+                
+                <motion.button
+                   whileHover={{ scale: 1.05 }}
+                   whileTap={{ scale: 0.95 }}
+                   onClick={() => navigate("/contact")}
+                   className="mt-10 bg-accent-gold text-primary-dark px-16 py-6 font-black uppercase tracking-widest text-sm shadow-[0_20px_50px_rgba(244,185,66,0.2)]"
+                >
+                  Schedule consultation
+                </motion.button>
+             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

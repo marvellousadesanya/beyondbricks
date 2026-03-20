@@ -6,7 +6,9 @@ import {
   Mail,
   Phone,
   MapPin,
+  ArrowRight
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,18 +18,9 @@ const Footer = () => {
   const quickLinks = [
     { name: "Home", href: "/#home", isSection: true },
     { name: "About Us", href: "/#about", isSection: true },
+    { name: "Portfolio", href: "/portfolio", isSection: false },
     { name: "Projects", href: "/projects", isSection: false },
-    { name: "Services", href: "/#services", isSection: true },
-    { name: "Testimonials", href: "/#testimonials", isSection: true },
     { name: "Contact", href: "/contact", isSection: false },
-  ];
-
-  const services = [
-    "Construction Planning",
-    "Construction Management",
-    "Building Maintenance",
-    "Renovation Services",
-    "Project Consultation",
   ];
 
   const socialLinks = [
@@ -36,23 +29,20 @@ const Footer = () => {
   ];
 
   const handleLinkClick = (e, href, isSection) => {
+    if (href.startsWith("http")) return;
     e.preventDefault();
 
     if (!isSection) {
-      // Navigate to a dedicated page route
       navigate(href);
     } else if (location.pathname === "/") {
-      // Already on homepage — just scroll to the section
       const sectionId = href.split("#")[1];
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // On another page — navigate home first, then scroll
       const sectionId = href.split("#")[1];
       navigate("/");
-      // Use a slightly longer delay to let the homepage fully render
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -63,46 +53,48 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-primary-dark border-t border-gray-800">
+    <footer className="bg-primary-dark border-t border-white/5 relative overflow-hidden z-10">
+      {/* Decorative background shape */}
+      <div className="absolute bottom-0 right-0 w-[40rem] h-[40rem] bg-accent-gold/[0.02] rounded-full blur-[120px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
+
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20">
           {/* Company Info */}
-          <div>
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+          <div className="space-y-8">
+            <h3 className="text-3xl font-bold uppercase tracking-tighter">
               <span className="text-white">Beyond</span>
               <span className="text-accent-gold"> Bricks</span>
             </h3>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              Lagos' leading construction company, building excellence one
-              project at a time. We transform visions into reality.
+            <p className="text-gray-400 text-sm font-light leading-relaxed max-w-xs">
+              Lagos' elite construction firm, engineering structural landmarks through precision and unyielding integrity.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social, index) => (
-                <a
+                <motion.a
                   key={index}
                   href={social.href}
-                  aria-label={social.label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-secondary-dark p-3 text-gray-300 hover:text-accent-gold hover:bg-accent-gold/10 transition-all duration-200">
+                  whileHover={{ scale: 1.1, backgroundColor: "#f4b942", color: "#111" }}
+                  className="bg-secondary-dark/50 p-4 text-gray-400 border border-white/5 rounded-full transition-all duration-300">
                   {social.icon}
-                </a>
+                </motion.a>
               ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-bold text-lg mb-6">Quick Links</h4>
-            <ul className="space-y-3">
+            <h4 className="text-white font-bold text-xs uppercase tracking-[0.3em] mb-10">Navigation</h4>
+            <ul className="space-y-4">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href, link.isSection)}
-                    className="text-gray-300 hover:text-accent-gold transition-colors duration-200 flex items-center">
-                    <span className="mr-2">›</span>
+                    className="text-gray-400 hover:text-accent-gold transition-colors duration-300 font-medium flex items-center group">
+                    <span className="w-0 group-hover:w-4 h-[1px] bg-accent-gold transition-all duration-300 mr-0 group-hover:mr-3" />
                     {link.name}
                   </a>
                 </li>
@@ -110,85 +102,54 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Support / Contact */}
           <div>
-            <h4 className="text-white font-bold text-lg mb-6">Our Services</h4>
-            <ul className="space-y-3">
-              {services.map((service, index) => (
-                <li key={index}>
-                  <a
-                    href="/#services"
-                    onClick={(e) => handleLinkClick(e, "/#services", true)}
-                    className="text-gray-300 hover:text-accent-gold transition-colors duration-200 flex items-center">
-                    <span className="mr-2">›</span>
-                    {service}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-gray-300">
-                <MapPin
-                  size={20}
-                  className="text-accent-gold flex-shrink-0 mt-1"
-                />
-                <span>Lagos, Nigeria</span>
+            <h4 className="text-white font-bold text-xs uppercase tracking-[0.3em] mb-10">Contact Portal</h4>
+            <ul className="space-y-6">
+              <li className="flex items-start gap-4 text-gray-400 text-sm">
+                <MapPin size={18} className="text-accent-gold flex-shrink-0" />
+                <span className="font-light">Lagos, Nigeria</span>
               </li>
-              <li className="flex items-start gap-3 text-gray-300">
-                <Phone
-                  size={20}
-                  className="text-accent-gold flex-shrink-0 mt-1"
-                />
-                <a
-                  href="tel:+234XXXXXXXXXX"
-                  className="hover:text-accent-gold transition-colors">
+              <li className="flex items-start gap-4 text-gray-400 text-sm">
+                <Phone size={18} className="text-accent-gold flex-shrink-0" />
+                <a href="tel:+2349072222444" className="hover:text-accent-gold transition-colors font-light italic underline decoration-accent-gold/20">
                   +234 907 222 2444
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-gray-300">
-                <Mail
-                  size={20}
-                  className="text-accent-gold flex-shrink-0 mt-1"
-                />
-                <a
-                  href="mailto:info@beyondbricks.ng"
-                  className="hover:text-accent-gold transition-colors">
-                  info@beyondbricks.ng
+              <li className="flex items-start gap-4 text-gray-400 text-sm">
+                <Mail size={18} className="text-accent-gold flex-shrink-0" />
+                <a href="mailto:builder@beyondbricks.ng" className="hover:text-accent-gold transition-colors font-light italic underline decoration-accent-gold/20">
+                  builder@beyondbricks.ng
                 </a>
               </li>
             </ul>
+          </div>
+
+          {/* Luxury CTA */}
+          <div className="bg-secondary-dark/30 p-10 rounded-2xl border border-white/5 relative overflow-hidden group">
+             <div className="absolute top-0 right-0 w-24 h-24 bg-accent-gold/5 blur-3xl pointer-events-none" />
+             <h4 className="text-white font-bold text-lg mb-6 leading-tight">Ready to break ground on your vision?</h4>
+             <button 
+               onClick={() => navigate("/contact")}
+               className="w-full bg-accent-gold text-primary-dark py-4 font-black uppercase tracking-widest text-[0.65rem] hover:bg-white transition-all duration-300 shadow-[0_10px_30px_rgba(244,185,66,0.1)] flex items-center justify-center gap-3"
+             >
+               Consultation <ArrowRight size={14} />
+             </button>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} BeyondBricks. All rights reserved.
+      {/* Extreme Bottom Bar */}
+      <div className="border-t border-white/5 bg-black/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            <p className="text-gray-500 text-[0.7rem] uppercase font-bold tracking-[0.2em] text-center md:text-left">
+              © {currentYear} Beyond Bricks Construction. All structural rights reserved.
             </p>
-            <div className="flex gap-6 text-sm">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-accent-gold transition-colors">
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-accent-gold transition-colors">
-                Terms of Service
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-accent-gold transition-colors">
-                Cookie Policy
-              </a>
+            <div className="flex gap-8 text-[0.7rem] uppercase font-bold tracking-[0.2em]">
+              <a href="#" className="text-gray-500 hover:text-white transition-colors">Privacy</a>
+              <a href="#" className="text-gray-500 hover:text-white transition-colors">Terms</a>
+              <a href="#" className="text-gray-500 hover:text-white transition-colors">Cookies</a>
             </div>
           </div>
         </div>

@@ -1,244 +1,227 @@
 import React, { useRef, useState, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
-/* ─────────────────────────────────────────────────────────────
-   Pre-generate stable random scatter offsets for "Beyond"
-   (called once, stored in a ref so they never change)
-───────────────────────────────────────────────────────────── */
-const seed = (i) => {
-  // Deterministic-ish spread based on index so SSR is consistent
-  const angle = (i * 137.5 * Math.PI) / 180; // golden-angle spiral
-  const radius = 280 + i * 35;
-  return {
-    x: Math.cos(angle) * radius,
-    y: Math.sin(angle) * radius - 60,
-    rotate: (i % 2 === 0 ? 1 : -1) * (15 + i * 8),
-    scale: 0.25 + (i % 3) * 0.15,
-  };
-};
-
-/* Individual letter component for "Beyond" (scattered → snap) */
-const ScatterLetter = ({ char, index, revealed, offset }) => {
-  const style = {
-    display: "inline-block",
-    /* spring overshoot: letters feel heavy snapping into place */
-    transition: revealed
-      ? `transform 0.85s cubic-bezier(0.34, 1.45, 0.64, 1) ${index * 0.07}s,
-         opacity   0.5s ease                                ${index * 0.07}s`
-      : "none",
-    transform: revealed
-      ? "translate(0,0) rotate(0deg) scale(1)"
-      : `translate(${offset.x}px, ${offset.y}px) rotate(${offset.rotate}deg) scale(${offset.scale})`,
-    opacity: revealed ? 1 : 0,
-    willChange: "transform, opacity",
-  };
-  return <span style={style}>{char}</span>;
-};
-
-/* Individual letter component for "Bricks" (drop from above → thud) */
-const BrickLetter = ({ char, index, revealed, totalBeyond }) => {
-  const baseDelay = totalBeyond * 0.07 + 0.05; // starts after Beyond finishes
-  const delay = baseDelay + index * 0.09;
-
-  const style = {
-    display: "inline-block",
-    /* stiff spring for the "thud" feel */
-    transition: revealed
-      ? `transform 0.6s cubic-bezier(0.22, 1.8, 0.36, 1) ${delay}s,
-         opacity   0.3s ease                               ${delay}s`
-      : "none",
-    transform: revealed ? "translateY(0) scaleY(1)" : "translateY(-180px) scaleY(0.6)",
-    opacity: revealed ? 1 : 0,
-    willChange: "transform, opacity",
-    transformOrigin: "top center",
-  };
-
-  return (
-    <span className="text-accent-gold" style={style}>
-      {char}
-    </span>
-  );
-};
-
-/* ═══════════════════════════════════════════════════════════
-   HERO
-════════════════════════════════════════════════════════════ */
 const Hero = () => {
   const navigate = useNavigate();
-  const [revealed, setRevealed] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
 
-  /* Generate scatter offsets once */
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i) => ({
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 1, 
+        delay: 0.5 + i * 0.1, 
+        ease: [0.16, 1, 0.3, 1] 
+      }
+    })
+  };
+
   const beyondLetters = "Beyond".split("");
   const bricksLetters = "Bricks".split("");
-  const offsets = useRef(beyondLetters.map((_, i) => seed(i)));
-
-  /* Tiny delay so the page is painted before animation starts */
-  useEffect(() => {
-    const t = setTimeout(() => setRevealed(true), 120);
-    return () => clearTimeout(t);
-  }, []);
-
-  /* Subtitle + buttons appear after all bricks have landed */
-  const allLetters = beyondLetters.length + bricksLetters.length;
-  const totalAnimMs =
-    (beyondLetters.length * 0.07 + bricksLetters.length * 0.09 + 0.8) * 1000;
-
-  const [subRevealed, setSubRevealed] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setSubRevealed(true), totalAnimMs + 120);
-    return () => clearTimeout(t);
-  }, []);
 
   return (
     <section
+      ref={heroRef}
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden">
-
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+      className="relative h-[100vh] flex items-center justify-center overflow-hidden bg-primary-dark"
+    >
+      {/* Cinematic Video/Image Background */}
+      <motion.div 
+        style={{ y, scale, opacity }}
+        className="absolute inset-0 w-full h-full"
+      >
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="w-full h-full object-cover brightness-[0.3]"
+        >
           <source
             src="https://res.cloudinary.com/dggeuuu1n/video/upload/v1761005613/AdobeStock_353539039_Video_4K_Preview_y1qzt4.mp4"
             type="video/mp4"
           />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
-      </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-dark/40 to-primary-dark" />
+      </motion.div>
 
-      {/* Floating gold orbs */}
-      <div
-        className="absolute top-1/4 left-10 w-64 h-64 rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(244,185,66,0.06) 0%, transparent 70%)",
-          animation: "float 6s ease-in-out infinite",
-        }}
-      />
-      <div
-        className="absolute bottom-1/3 right-16 w-96 h-96 rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(244,185,66,0.04) 0%, transparent 70%)",
-          animation: "float 8s ease-in-out infinite 2s",
-        }}
-      />
-
-      {/* Main content */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-
-        {/* Label pill — fades in before letters animate */}
-        <div
-          className="inline-flex items-center gap-2 mb-6"
-          style={{
-            opacity: revealed ? 1 : 0,
-            transform: revealed ? "translateY(0)" : "translateY(-12px)",
-            transition: "opacity 0.6s ease 0s, transform 0.6s ease 0s",
-          }}>
-          <span
-            className="px-4 py-1.5 text-xs font-semibold tracking-[0.2em] uppercase border border-accent-gold/40 text-accent-gold"
-            style={{ background: "rgba(244,185,66,0.08)", backdropFilter: "blur(4px)" }}>
-            Lagos&apos; Premier Construction Company
-          </span>
-        </div>
-
-        {/* ── ANIMATED TITLE ── */}
-        <h1
-          className="text-5xl md:text-7xl lg:text-8xl font-medium mb-4 text-white leading-tight"
-          style={{ lineHeight: 1.1 }}>
-          {/* "Beyond" — scattered bricks fly in */}
-          {beyondLetters.map((char, i) => (
-            <ScatterLetter
-              key={i}
-              char={char}
-              index={i}
-              revealed={revealed}
-              offset={offsets.current[i]}
-            />
-          ))}
-
-          {/* Space between words */}
-          <span style={{ display: "inline-block", width: "0.3em" }} />
-
-          {/* "Bricks" — letter-bricks drop in */}
-          {bricksLetters.map((char, i) => (
-            <BrickLetter
-              key={i}
-              char={char}
-              index={i}
-              revealed={revealed}
-              totalBeyond={beyondLetters.length}
-            />
-          ))}
-        </h1>
-
-        {/* Subtitle */}
-        <p
-          className="text-xl md:text-2xl lg:text-3xl mb-10 text-gray-200 font-light"
-          style={{
-            opacity: subRevealed ? 1 : 0,
-            transform: subRevealed ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.7s ease, transform 0.7s ease",
-          }}>
-          Building Excellence, One Project at a Time
-        </p>
-
-        {/* CTA buttons */}
-        <div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          style={{
-            opacity: subRevealed ? 1 : 0,
-            transform: subRevealed ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s",
-          }}>
-
-          {/* Primary — pulsing gold */}
-          <div className="relative group">
-            <span
-              className="absolute inset-0 bg-accent-gold/30 pointer-events-none"
-              style={{ animation: "pulseRing 2s ease-out infinite" }}
-            />
-            <span
-              className="absolute inset-0 bg-accent-gold/20 pointer-events-none"
-              style={{ animation: "pulseRing 2s ease-out infinite 0.6s" }}
-            />
-            <a
-              href="/contact"
-              onClick={(e) => { e.preventDefault(); navigate("/contact"); }}
-              className="btn-shimmer relative z-10 inline-flex items-center gap-2 bg-accent-gold text-primary-dark px-7 py-3.5 font-semibold text-sm tracking-wide transition-all duration-300 hover:shadow-[0_0_30px_rgba(244,185,66,0.5)]">
-              Start Your Project
-              <ArrowRight className="group-hover:translate-x-1 transition-transform duration-200" size={18} />
-            </a>
-          </div>
-
-          {/* Secondary — ghost */}
-          <a
-            href="/projects"
-            onClick={(e) => { e.preventDefault(); navigate("/projects"); }}
-            className="relative inline-flex items-center gap-2 border border-white/40 text-white px-7 py-3.5 font-medium text-sm tracking-wide transition-all duration-300 hover:border-accent-gold hover:text-accent-gold hover:bg-accent-gold/5 group">
-            View Our Work
-            <ArrowRight
-              className="group-hover:translate-x-1 transition-transform duration-200 opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0"
-              size={18}
-            />
-          </a>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        style={{
-          opacity: subRevealed ? 1 : 0,
-          transition: "opacity 0.8s ease 0.3s",
-        }}>
-        <span className="text-white/40 text-xs tracking-widest uppercase">Scroll</span>
-        <div className="w-5 h-9 border border-white/30 rounded-full flex items-start justify-center p-1.5">
-          <div
-            className="w-1 h-2.5 bg-accent-gold rounded-full"
-            style={{ animation: "float 1.5s ease-in-out infinite" }}
+      {/* Floating Elements for Depth */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-accent-gold/20 rounded-full"
+            style={{
+              width: Math.random() * 4 + 2,
+              height: Math.random() * 4 + 2,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0, 0.5, 0],
+            }}
+            transition={{
+              duration: Math.random() * 5 + 5,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 5,
+            }}
           />
-        </div>
+        ))}
+        <motion.div 
+          animate={{ 
+            y: [0, -20, 0],
+            rotate: [0, 5, 0]
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -left-20 w-80 h-80 bg-accent-gold/5 rounded-full blur-[100px]" 
+        />
+        <motion.div 
+          animate={{ 
+            y: [0, 20, 0],
+            rotate: [0, -5, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-1/4 -right-20 w-[40rem] h-[40rem] bg-accent-gold/5 rounded-full blur-[120px]" 
+        />
       </div>
+
+      <div className="relative z-10 text-center px-4 max-w-7xl mx-auto w-full">
+        <motion.div
+          initial="hidden"
+          animate={isLoaded ? "visible" : "hidden"}
+          className="space-y-8"
+        >
+          {/* Label Pill */}
+          <motion.div 
+            variants={textVariants}
+            custom={0}
+            className="flex justify-center mb-6"
+          >
+            <span className="px-6 py-2 text-[0.7rem] md:text-xs font-bold tracking-[0.4em] uppercase border border-accent-gold/30 text-accent-gold bg-accent-gold/5 backdrop-blur-md rounded-full">
+              Lagos' Premier Construction Firm
+            </span>
+          </motion.div>
+
+          {/* Main Title with Letter Animation */}
+          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold text-white leading-[0.9] uppercase tracking-tighter">
+            <div className="flex flex-wrap justify-center overflow-hidden">
+              {beyondLetters.map((letter, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={isLoaded ? { y: 0, opacity: 1 } : {}}
+                  transition={{ duration: 1.2, delay: 0.6 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block"
+                >
+                  {letter}
+                </motion.span>
+              ))}
+              <span className="w-8 md:w-12" />
+              {bricksLetters.map((letter, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={isLoaded ? { y: 0, opacity: 1 } : {}}
+                  transition={{ duration: 1.2, delay: 1.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block text-accent-gold"
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </div>
+          </h1>
+
+          {/* Subtitle */}
+          <motion.p 
+            variants={textVariants}
+            custom={2}
+            className="text-base md:text-xl text-gray-400 font-light max-w-3xl mx-auto leading-relaxed mt-8"
+          >
+            Engineering the extraordinary. We take complex visions and <span className="text-white font-medium">transform them into iconic landmarks</span> across Nigeria.
+          </motion.p>
+
+          {/* CTA Group */}
+          <motion.div 
+            variants={textVariants}
+            custom={3}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/contact")}
+              className="group relative overflow-hidden bg-accent-gold text-primary-dark px-10 py-5 font-bold uppercase tracking-widest text-sm transition-all duration-300 shadow-[0_0_40px_rgba(244,185,66,0.2)]"
+            >
+              <span className="relative z-10 flex items-center gap-3">
+                Start Building <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
+              </span>
+              <motion.div 
+                className="absolute inset-0 bg-white"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ duration: 0.5 }}
+                style={{ opacity: 0.2 }}
+              />
+            </motion.button>
+
+            <motion.button
+              whileHover={{ x: 5 }}
+              onClick={() => navigate("/projects")}
+              className="flex items-center gap-4 text-white hover:text-accent-gold transition-colors duration-300 uppercase tracking-[0.2em] text-xs font-bold"
+            >
+              <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:border-accent-gold transition-colors">
+                <Play fill="currentColor" size={16} />
+              </div>
+              Explore Our Portfolio
+            </motion.button>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Extreme Bottom Gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-primary-dark to-transparent z-20" />
+
+      {/* Progress Indicator */}
+      <motion.div 
+        className="absolute bottom-10 left-10 md:left-20 flex flex-col items-start gap-4 z-30"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+      >
+        <div className="flex items-center gap-4">
+          <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent-gold">Beyond Bricks</span>
+          <div className="w-20 h-[1px] bg-accent-gold/20" />
+          <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500">Master Builder</span>
+        </div>
+      </motion.div>
+
+      {/* Scroll Mouse Icon */}
+      <motion.div 
+        className="absolute bottom-10 right-10 md:right-20 z-30 hidden lg:block"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div className="w-[1px] h-20 bg-gradient-to-b from-accent-gold to-transparent mx-auto" />
+      </motion.div>
     </section>
   );
 };
