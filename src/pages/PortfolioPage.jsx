@@ -1,9 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Play, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { projects } from "../data/projects";
 import bamiHero from "../assets/bami-hero.jpg";
 import bamiAbout from "../assets/bami-about.jpg";
+import showreelVideo from "../assets/showreel.mp4";
+import { X } from "lucide-react";
 
 // Split Text Component
 const SplitTextReveal = ({ text, className }) => {
@@ -65,6 +68,7 @@ const CoverImageReveal = ({ src, alt, className, style }) => {
 
 // Work Parallax Component
 const WorkParallaxItem = ({ work, index }) => {
+  const navigate = useNavigate();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -77,6 +81,7 @@ const WorkParallaxItem = ({ work, index }) => {
   return (
     <motion.div 
       ref={ref}
+      onClick={() => navigate(`/project/${work.id}`)}
       className={`group relative flex flex-col ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-10 lg:gap-20 items-center cursor-pointer`}
       initial="hidden"
       whileInView="visible"
@@ -137,18 +142,10 @@ const PortfolioPage = () => {
   const { scrollYProgress: aboutScroll } = useScroll({ target: aboutRef, offset: ["start end", "end start"] });
   const aboutImgY = useTransform(aboutScroll, [0, 1], ["-15%", "15%"]);
 
-  // Testimonials
-  const testimonials = [
-    { text: "It’s like he read our minds with this lovely building plan. The structural execution was flawless. I love it. Thank you!", name: "David Adeleke", title: "Real Estate Developer" },
-    { text: "Bami expertly filled the lead contractor role. We hired him after seeing his past projects, and since then, he has completed numerous buildings without any flaw. Highly profound.", name: "Emeka O.", title: "CEO, Solat Tech" },
-    { text: "His ability to take a client's ideas and make them come to life on the field is remarkable. He never loses sight of the task at hand.", name: "Amina C.", title: "Investor" }
-  ];
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  // Showreel Modal State
+  const [showreelOpen, setShowreelOpen] = useState(false);
 
-  useEffect(() => {
-    const timer = setInterval(() => { setActiveTestimonial((prev) => (prev + 1) % testimonials.length); }, 6000);
-    return () => clearInterval(timer);
-  }, [testimonials.length]);
+
 
   return (
     <div className="bg-[#111] text-white min-h-screen pt-20 overflow-hidden relative font-['Outfit',sans-serif]">
@@ -204,6 +201,7 @@ const PortfolioPage = () => {
           <motion.button 
             variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } } }}
             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+            onClick={() => setShowreelOpen(true)}
             className="flex items-center gap-3 text-accent-gold hover:text-white transition-colors duration-300 uppercase tracking-widest font-semibold group mt-8"
           >
             <span className="w-14 h-14 rounded-full border border-accent-gold flex items-center justify-center group-hover:bg-accent-gold group-hover:text-[#111] transition-all duration-300 relative overflow-hidden">
@@ -234,8 +232,18 @@ const PortfolioPage = () => {
             <h2 className="text-3xl md:text-5xl font-bold uppercase mb-8 tracking-tight">
               A bit <span className="text-accent-gold">About Me</span>
             </h2>
-            <motion.div style={{ y: aboutImgY }} className="w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative">
+            <motion.div style={{ y: aboutImgY }} className="w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative group">
                <CoverImageReveal src={bamiAbout} alt="About Bami" />
+               
+               {/* Floating Experience Badge */}
+               <motion.div 
+                 initial={{ opacity: 0, scale: 0.8 }}
+                 whileInView={{ opacity: 1, scale: 1 }}
+                 className="absolute bottom-6 -right-6 bg-accent-gold text-primary-dark p-6 rounded-full w-32 h-32 flex flex-col items-center justify-center shadow-2xl z-20 hidden md:flex"
+               >
+                 <span className="text-3xl font-black leading-none">10+</span>
+                 <span className="text-[10px] uppercase font-bold tracking-tighter">Years Exp</span>
+               </motion.div>
             </motion.div>
           </motion.div>
           
@@ -253,9 +261,26 @@ const PortfolioPage = () => {
               My background includes corporate, agency, and private construction experience, with a history of leading major developments to acclaimed completion. One of my best skills is the ability to <span className="text-accent-gold font-medium">take client concepts and synthesize them</span> into a safe, sustainable finished product. I work seamlessly with a team to overcome virtually any design problem.
             </p>
             
-            <motion.div className="pt-8 block">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Signature_of_John_Hancock.svg" alt="Signature" className="invert opacity-30 w-48 hover:opacity-100 hover:invert-0 hover:brightness-200 transition-all duration-300 block" />
-            </motion.div>
+            <div className="grid grid-cols-2 gap-6 pt-4">
+              {[
+                { label: "Years Experience", value: "10+" },
+                { label: "Projects Completed", value: "50+" },
+                { label: "Safety Rating", value: "100%" },
+                { label: "City Impact", value: "Nigeria" }
+              ].map((stat, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 + (i * 0.1) }}
+                  className="bg-white/5 p-4 rounded-xl border border-white/5 group hover:border-accent-gold/30 transition-colors"
+                >
+                  <div className="text-2xl font-bold text-accent-gold mb-1">{stat.value}</div>
+                  <div className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -268,11 +293,12 @@ const PortfolioPage = () => {
         <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
           <motion.ul 
             className="flex items-center justify-center md:justify-start [&_li]:mx-10 [&_img]:max-w-none whitespace-nowrap"
-            animate={{ x: [0, -1000] }}
-            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+            animate={{ x: [0, -1500] }}
+            transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
           >
-            {["SOLAT TELECOMS", "EMRO", "RASMED PUBLICATIONS", "BUYBOOKS", "FORTEND VENTURES", "IX DESIGN", "MARBELLA REAL ESTATE", "BEN E. LTD"].map((company, idx) => (
-              <li key={idx} className="text-2xl md:text-5xl font-bold uppercase tracking-wide opacity-80 hover:opacity-100 transition-opacity cursor-default">
+            {["IX DESIGN ABUJA", "BRATATEK HOMES", "PRIVERIA SUPPORT SERVICES LTD", "SMALL IDEAS BIG TECH LTD", "MALOK NIGERIA LTD", "LAKE SIDE ESTATE", "PROPERTY GATE", "CRESCO HOMES & PROPERTY"].map((company, idx) => (
+              <li key={idx} className="text-2xl md:text-5xl font-extrabold uppercase tracking-tighter opacity-70 hover:opacity-100 transition-opacity cursor-default flex items-center gap-6">
+                <div className="w-4 h-4 bg-primary-dark rotate-45" />
                 {company}
               </li>
             ))}
@@ -333,63 +359,7 @@ const PortfolioPage = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="bg-primary-dark py-32 lg:py-48 overflow-hidden relative z-10 border-y border-gray-800/50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center min-h-[350px] flex flex-col justify-center">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 text-[15rem] font-serif text-accent-gold/5 leading-none z-0 pointer-events-none select-none">
-            "
-          </div>
-          
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTestimonial}
-              initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="relative z-10"
-            >
-              <h3 className="text-2xl md:text-4xl lg:text-5xl font-medium leading-relaxed mb-12 text-white/95 px-4">
-                " 
-                <span className="block text-center mt-4 leading-tight">
-                  {testimonials[activeTestimonial].text.includes("flawless") ? (
-                    <>It’s like he read our minds with this lovely building plan. The structural execution was <span className="text-accent-gold">flawless</span>. I love it.</>
-                  ) : testimonials[activeTestimonial].text.includes("profound") ? (
-                    <>Bami expertly filled the lead contractor role. We hired him after seeing his past projects, and since then, he has completed numerous buildings without any flaw. <span className="text-accent-gold">Highly profound.</span></>
-                  ) : (
-                    <>His ability to take a client's ideas and make them come to life on the field is <span className="text-accent-gold">remarkable</span>. He never loses sight of the task at hand.</>
-                  )}
-                </span>
-                "
-              </h3>
-              
-              <div className="inline-flex flex-col items-center gap-4 text-center">
-                <div className="w-16 h-16 rounded-full border-2 border-accent-gold flex items-center justify-center font-bold text-2xl text-accent-gold bg-accent-gold/10">
-                  {testimonials[activeTestimonial].name.charAt(0)}
-                </div>
-                <div>
-                  <h4 className="text-xl md:text-2xl font-bold tracking-widest uppercase">{testimonials[activeTestimonial].name}</h4>
-                  <p className="text-accent-gold font-bold uppercase tracking-widest text-xs md:text-sm mt-2">{testimonials[activeTestimonial].title}</p>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-          
-          {/* Pagination */}
-          <div className="flex justify-center gap-3 mt-16 relative z-10">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveTestimonial(idx)}
-                className={`transition-all duration-300 rounded-full h-1.5 ${
-                  idx === activeTestimonial ? "w-10 bg-accent-gold" : "w-2 bg-gray-700 hover:bg-gray-500"
-                }`}
-                aria-label={`Go to testimonial ${idx + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Contact Section */}
       <section className="py-24 lg:py-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -438,6 +408,44 @@ const PortfolioPage = () => {
           </motion.a>
         </motion.div>
       </section>
+
+      {/* Showreel Modal */}
+      <AnimatePresence>
+        {showreelOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 pointer-events-auto"
+          >
+            <motion.div 
+               className="absolute inset-0 bg-primary-dark/95 backdrop-blur-2xl"
+               onClick={() => setShowreelOpen(false)}
+            />
+            
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="relative z-10 w-full max-w-6xl aspect-video bg-black rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(244,185,66,0.3)] border border-white/10"
+            >
+              <button 
+                onClick={() => setShowreelOpen(false)}
+                className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-accent-gold hover:text-primary-dark transition-all duration-300"
+              >
+                <X size={24} />
+              </button>
+              
+              <video 
+                src={showreelVideo} 
+                className="w-full h-full object-contain" 
+                controls 
+                autoPlay 
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

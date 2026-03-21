@@ -146,11 +146,6 @@ const Footer = () => {
             <p className="text-gray-500 text-[0.7rem] uppercase font-bold tracking-[0.2em] text-center md:text-left">
               © {currentYear} Beyond Bricks Construction. All structural rights reserved.
             </p>
-            <div className="flex gap-8 text-[0.7rem] uppercase font-bold tracking-[0.2em]">
-              <a href="#" className="text-gray-500 hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="text-gray-500 hover:text-white transition-colors">Terms</a>
-              <a href="#" className="text-gray-500 hover:text-white transition-colors">Cookies</a>
-            </div>
           </div>
         </div>
       </div>

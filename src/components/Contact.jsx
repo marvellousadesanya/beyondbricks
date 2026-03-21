@@ -140,31 +140,7 @@ const Contact = () => {
               ))}
             </div>
 
-            {/* Office Hours High-End Display */}
-            <div className="bg-primary-dark/80 p-10 border border-white/5 rounded-2xl shadow-2xl overflow-hidden relative group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent-gold/5 blur-3xl pointer-events-none" />
-              <h4 className="text-white font-bold text-xl mb-8 uppercase tracking-widest flex items-center gap-4">
-                 Operation <span className="text-accent-gold">Hours</span>
-                 <div className="flex-grow h-[1px] bg-white/5 group-hover:bg-accent-gold/20 transition-colors" />
-              </h4>
-              <div className="space-y-6 text-gray-300 font-light">
-                <div className="flex justify-between items-center group/line">
-                  <span className="text-gray-500 uppercase tracking-widest text-[0.6rem] font-bold">Mon - Fri</span>
-                  <div className="flex-grow mx-4 h-[1px] border-b border-dashed border-white/5" />
-                  <span className="text-white font-medium group-hover/line:text-accent-gold transition-colors">8:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between items-center group/line">
-                  <span className="text-gray-500 uppercase tracking-widest text-[0.6rem] font-bold">Sat</span>
-                   <div className="flex-grow mx-4 h-[1px] border-b border-dashed border-white/5" />
-                  <span className="text-white font-medium group-hover/line:text-accent-gold transition-colors">9:00 AM - 3:00 PM</span>
-                </div>
-                <div className="flex justify-between items-center group/line">
-                  <span className="text-gray-500 uppercase tracking-widest text-[0.6rem] font-bold">Sun</span>
-                   <div className="flex-grow mx-4 h-[1px] border-b border-dashed border-white/5" />
-                  <span className="text-red-400 font-medium">Closed for R&D</span>
-                </div>
-              </div>
-            </div>
+
           </motion.div>
 
           {/* Contact Form */}
