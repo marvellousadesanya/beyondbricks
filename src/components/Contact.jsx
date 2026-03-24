@@ -62,14 +62,14 @@ const Contact = () => {
     {
       icon: <Phone size={24} />,
       title: "Phone",
-      content: "+234 907 222 2444",
-      link: "tel:+2349072222444",
+      content: "+234 812 249 7729",
+      link: "tel:+2348122497729",
     },
     {
       icon: <Mail size={24} />,
       title: "Email",
-      content: "builder@beyondbricks.ng",
-      link: "mailto:builder@beyondbricks.ng",
+      content: "info@beyondbricks.com",
+      link: "mailto:info@beyondbricks.com",
     },
     {
       icon: <MapPin size={24} />,
@@ -100,7 +100,7 @@ const Contact = () => {
           </h2>
           <div className="w-24 h-1 bg-accent-gold mx-auto mb-10 origin-left" />
           <p className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed">
-            Ready to break ground on your next landmark? Contact us today for a consultation and let's craft something legendary.
+            Ready to break ground on your vision? Contact us today for a consultation and let's craft something legendary.
           </p>
         </motion.div>
 

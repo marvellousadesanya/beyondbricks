@@ -4,8 +4,8 @@ import Hero from "../components/Hero";
 import About from "../components/About";
 import Projects from "../components/Projects";
 import Services from "../components/Services";
-import WhyChooseUs from "../components/WhyChooseUs";
-import Testimonials from "../components/Testimonials";
+import Clientele from "../components/Clientele";
+import CTA from "../components/CTA";
 
 const HomePage = () => {
   const containerRef = useRef(null);
@@ -43,10 +43,10 @@ const HomePage = () => {
 
       <Hero />
       <About />
-      <Projects />
+      <Clientele />
       <Services />
-      <WhyChooseUs />
-      <Testimonials />
+      <Projects />
+      <CTA />
       
       {/* Cinematic Floating Noise Layer */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.03]"

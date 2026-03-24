@@ -33,8 +33,9 @@ const Hero = () => {
     })
   };
 
+  const buildingLetters = "Building".split("");
   const beyondLetters = "Beyond".split("");
-  const bricksLetters = "Bricks".split("");
+  const expectationsLetters = "Expectations".split("");
 
   return (
     <section
@@ -121,9 +122,9 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold text-white leading-[0.9] uppercase tracking-tighter">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-[5.5rem] font-bold text-white leading-[0.9] uppercase tracking-tighter">
             <div className="flex flex-wrap justify-center overflow-hidden">
-              {beyondLetters.map((letter, i) => (
+              {buildingLetters.map((letter, i) => (
                 <motion.span
                   key={i}
                   initial={{ y: "100%", opacity: 0 }}
@@ -134,14 +135,26 @@ const Hero = () => {
                   {letter}
                 </motion.span>
               ))}
-              <span className="w-8 md:w-12" />
-              {bricksLetters.map((letter, i) => (
+              <span className="w-8 md:w-10" />
+              {beyondLetters.map((letter, i) => (
                 <motion.span
                   key={i}
                   initial={{ y: "100%", opacity: 0 }}
                   animate={isLoaded ? { y: 0, opacity: 1 } : {}}
                   transition={{ duration: 1.2, delay: 1.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                   className="inline-block text-accent-gold"
+                >
+                  {letter}
+                </motion.span>
+              ))}
+              <span className="w-8 md:w-10" />
+              {expectationsLetters.map((letter, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={isLoaded ? { y: 0, opacity: 1 } : {}}
+                  transition={{ duration: 1.2, delay: 1.6 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block"
                 >
                   {letter}
                 </motion.span>
@@ -154,7 +167,7 @@ const Hero = () => {
             custom={2}
             className="text-sm sm:text-base md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed mt-6 md:mt-8 px-4"
           >
-            Engineering the extraordinary. We take complex visions and <span className="text-white font-medium">transform them into iconic landmarks</span> across Nigeria.
+            Delivering structural excellence through <span className="text-white font-medium">precision, innovation, and integrity.</span>
           </motion.p>
 
           {/* CTA Group */}

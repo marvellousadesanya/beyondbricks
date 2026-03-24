@@ -91,7 +91,7 @@ export const projects = [
     thumbnail: khafProject1,
     images: [khafProject1, khafProject2, khafProject3, khafProject4],
     description:
-      "Contemporary residential design with attention to detail and quality craftsmanship.",
+      "A contemporary residential project with attention to detail and quality craftsmanship.",
   },
   {
     id: 4,
@@ -107,7 +107,7 @@ export const projects = [
       residentialDevelopment6,
     ],
     description:
-      "Residential development featuring innovative design and sustainable practices.",
+      "A residential development featuring innovative design and sustainable practices.",
   },
   {
     id: 5,

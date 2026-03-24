@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { projects } from "../data/projects";
 import bamiHero from "../assets/bami-hero.jpg";
-import bamiAbout from "../assets/bami-about.jpg";
+import teamHero from "../assets/beyondbricks-team-hero.jpg";
 import showreelVideo from "../assets/showreel.mp4";
 import { X } from "lucide-react";
+import CTA from "../components/CTA";
 
 // Split Text Component
 const SplitTextReveal = ({ text, className }) => {
@@ -133,7 +134,11 @@ const PortfolioPage = () => {
   const heroY = useTransform(heroScroll, [0, 1], ["0%", "15%"]);
   const heroOpacity = useTransform(heroScroll, [0, 1], [1, 0]);
 
-  // Background Text Parallax
+  // Specific Hero Background Text Parallax
+  const bgHeroX1 = useTransform(heroScroll, [0, 1], ["0%", "20%"]);
+  const bgHeroX2 = useTransform(heroScroll, [0, 1], ["0%", "-20%"]);
+
+  // Background Text Parallax (General)
   const bgTextX1 = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
   const bgTextX2 = useTransform(scrollYProgress, [0, 1], ["-40%", "0%"]);
 
@@ -154,12 +159,22 @@ const PortfolioPage = () => {
 
       {/* Background Text Parallax */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-5 flex flex-col justify-between py-40">
-        <motion.h1 style={{ x: bgTextX1 }} className="text-[10rem] md:text-[12rem] font-bold whitespace-nowrap uppercase tracking-tight">
-          BAMI THE BUILDER BAMI THE BUILDER
+        <motion.h1 style={{ x: bgTextX1 }} className="text-[6rem] md:text-[10rem] font-black whitespace-nowrap uppercase tracking-tight text-white/5">
+          ENGINEERING EXCELLENCE ENGINEERING EXCELLENCE
         </motion.h1>
-        <motion.h1 style={{ WebkitTextStroke: '1px white', x: bgTextX2 }} className="text-[10rem] md:text-[12rem] font-bold whitespace-nowrap uppercase text-transparent tracking-tight">
-          CONSTRUCTION MASTER CONSTRUCTION MASTER
+        <motion.h1 style={{ WebkitTextStroke: '1px white', x: bgTextX2 }} className="text-[6rem] md:text-[10rem] font-bold whitespace-nowrap uppercase text-transparent tracking-tight opacity-5">
+           TRANSFORMING LANDSCAPES TRANSFORMING LANDSCAPES
         </motion.h1>
+      </div>
+      
+      {/* Portfolio Specific Hero Background Animation */}
+      <div className="absolute top-0 left-0 right-0 h-screen overflow-hidden pointer-events-none z-0">
+          <motion.div style={{ x: bgHeroX1 }} className="absolute top-[15%] -left-[10%] opacity-20">
+             <h1 className="text-[12rem] md:text-[20rem] font-black text-white/5 uppercase tracking-tighter select-none">BEYOND</h1>
+          </motion.div>
+          <motion.div style={{ x: bgHeroX2 }} className="absolute bottom-[15%] -right-[10%] opacity-20">
+             <h1 className="text-[12rem] md:text-[20rem] font-black text-white/5 uppercase tracking-tighter select-none">BRICKS</h1>
+          </motion.div>
       </div>
       
       {/* Floating Rotating Accent Element */}
@@ -178,23 +193,32 @@ const PortfolioPage = () => {
           variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } } }}
         >
           <motion.div variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } }}>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight uppercase relative inline-block tracking-tight text-white mb-2">
-              Hello, I'm <br />
-              <span className="text-accent-gold relative z-10 font-bold">Bami</span>
-              <motion.div 
-                className="absolute bottom-2 left-0 h-4 bg-accent-gold/20 z-0 origin-left rounded-sm"
-                initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1, delay: 0.8, ease: "circOut" }}
-                style={{ width: "100%" }}
-              />
-            </h1>
+            <div className="overflow-hidden flex flex-col items-start">
+              <motion.h1 
+                variants={{ hidden: { y: "100%" }, visible: { y: 0, transition: { duration: 0.8, ease: "easeOut" } } }}
+                className="text-6xl md:text-8xl font-black leading-[0.85] uppercase tracking-tighter text-white"
+              >
+                Beyond
+              </motion.h1>
+              <motion.h1 
+                variants={{ hidden: { y: "100%" }, visible: { y: 0, transition: { duration: 0.8, delay: 0.1, ease: "easeOut" } } }}
+                className="text-6xl md:text-8xl font-black leading-[0.85] uppercase tracking-tighter text-accent-gold"
+              >
+                Bricks
+              </motion.h1>
+            </div>
+            <motion.div 
+               variants={{ hidden: { scaleX: 0 }, visible: { scaleX: 1, transition: { duration: 1.2, delay: 0.4, ease: "circOut" } } }}
+               className="h-1 bg-accent-gold w-full origin-left mt-6"
+            />
           </motion.div>
 
           <motion.div className="space-y-2 overflow-hidden">
             <motion.h6 variants={{ hidden: { y: "100%" }, visible: { y: "0%", transition: { duration: 0.6 } } }} className="text-lg md:text-2xl text-gray-300 font-medium uppercase tracking-wide">
-              Master <span className="text-accent-gold">Builder</span>
+              Company <span className="text-accent-gold">Portfolio</span>
             </motion.h6>
-            <motion.h6 variants={{ hidden: { y: "100%" }, visible: { y: "0%", transition: { duration: 0.6 } } }} className="text-lg md:text-2xl text-gray-300 font-medium uppercase tracking-wide">
-              Project <span className="text-accent-gold">Manager</span>
+            <motion.h6 variants={{ hidden: { y: "100%" }, visible: { y: "0%", transition: { duration: 0.6 } } }} className="text-lg md:text-2xl text-gray-400 font-light uppercase tracking-widest text-[0.7rem]">
+              Structural <span className="text-accent-gold">Landmarks</span>
             </motion.h6>
           </motion.div>
           
@@ -214,7 +238,7 @@ const PortfolioPage = () => {
         
         <motion.div className="flex-1 w-full relative" style={{ y: heroY }}>
           <div className="w-full aspect-[4/5] rounded-xl overflow-hidden shadow-2xl relative">
-             <CoverImageReveal src={bamiHero} alt="Bami Hero" className="transition-all duration-700" />
+             <CoverImageReveal src={teamHero} alt="Beyond Bricks Team" className="transition-all duration-700" />
           </div>
         </motion.div>
       </section>
@@ -230,10 +254,10 @@ const PortfolioPage = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h2 className="text-3xl md:text-5xl font-bold uppercase mb-8 tracking-tight">
-              A bit <span className="text-accent-gold">About Me</span>
+              Meet our <span className="text-accent-gold">CEO & Founder</span>
             </h2>
             <motion.div style={{ y: aboutImgY }} className="w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative group">
-               <CoverImageReveal src={bamiAbout} alt="About Bami" />
+               <CoverImageReveal src={bamiHero} alt="CEO & Founder" />
                
                {/* Floating Experience Badge */}
                <motion.div 
@@ -254,11 +278,11 @@ const PortfolioPage = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            <p className="text-xl md:text-3xl leading-relaxed text-gray-200 font-light">
-              I am a proactive professional who knows his onions. Having worked on nationwide projects, I am <span className="text-accent-gold font-medium">highly reliable</span> and continuously seek to improve structural functionalities.
+            <p className="text-base md:text-xl leading-relaxed text-gray-400 font-light">
+              Our CEO is a proactive professional with deep technical expertise. Having led nationwide secondary developments, he is <span className="text-accent-gold font-medium">highly reliable</span> and dedicated to structural advancement.
             </p>
             <p className="text-base md:text-xl leading-relaxed text-gray-400 font-light">
-              My background includes corporate, agency, and private construction experience, with a history of leading major developments to acclaimed completion. One of my best skills is the ability to <span className="text-accent-gold font-medium">take client concepts and synthesize them</span> into a safe, sustainable finished product. I work seamlessly with a team to overcome virtually any design problem.
+              His background spans corporate and private construction, with a track record of steering major projects to acclaim. His greatest strength is the ability to <span className="text-accent-gold font-medium">synthesize complex client concepts</span> into safe, sustainable landmarks. Under his leadership, Beyond Bricks overcomes any design challenge with precision.
             </p>
             
             <div className="grid grid-cols-2 gap-6 pt-4">
@@ -309,13 +333,13 @@ const PortfolioPage = () => {
       {/* Specializations */}
       <section className="bg-[#111] py-32 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SplitTextReveal text="MY SPECIALIZATIONS" className="text-3xl md:text-5xl font-bold uppercase mb-20 text-accent-gold tracking-tight" />
+          <SplitTextReveal text="OUR SPECIALIZATIONS" className="text-3xl md:text-5xl font-bold uppercase mb-20 text-accent-gold tracking-tight" />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
             {[
-              { title: "Construction Design", desc: "My background includes residential, commercial, and industrial construction experience, with a history of leading building projects to acclaimed completion." },
-              { title: "Project Management", desc: "While I have extensive technical knowledge, my passion lies in bringing a project to life from the ground up, managing teams to ensure quality execution." },
-              { title: "Site Supervision", desc: "I am a prolific supervisor. I work with contractors to determine needs, develop timelines, and oversee creation. Safety and integrity are top priorities." }
+              { title: "Construction Design", desc: "Our firm’s background spans residential, commercial, and industrial construction, with a track record of leading complex developments to acclaimed completion." },
+              { title: "Project Management", desc: "Our passion lies in bringing vision to life from the ground up, combining deep technical knowledge with elite leadership to ensure absolute quality in execution." },
+              { title: "Site Supervision", desc: "We are prolific supervisors. Beyond Bricks coordinates between contractors and stakeholders to ensure every timeline is met with safety and integrity as top priorities." }
             ].map((spec, i) => (
               <motion.div 
                 key={i}
@@ -348,6 +372,63 @@ const PortfolioPage = () => {
         </div>
       </section>
 
+      {/* Client Voices Section */}
+      <section className="py-24 md:py-48 bg-[#111] relative z-10 overflow-hidden">
+        {/* Cinematic Quote Decoration */}
+        <div className="absolute top-1/2 left-10 md:left-20 -translate-y-1/2 opacity-10 flex flex-col items-center gap-4">
+           <div className="text-[10rem] md:text-[20rem] font-bold text-accent-gold select-none leading-none">“</div>
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <motion.div 
+               initial={{ opacity: 0, y: 30 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true }}
+               className="mb-20"
+            >
+               <h2 className="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter mb-4">
+                 Client <span className="text-accent-gold">Voices</span>
+               </h2>
+               <div className="w-24 h-1 bg-accent-gold mx-auto" />
+            </motion.div>
+
+            <motion.div 
+               initial={{ opacity: 0, scale: 0.95 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               viewport={{ once: true }}
+               transition={{ duration: 0.8 }}
+               className="space-y-12"
+            >
+               {/* 5 Stars */}
+               <div className="flex justify-center gap-2 text-accent-gold">
+                  {[...Array(5)].map((_, i) => (
+                    <motion.div 
+                       key={i}
+                       initial={{ opacity: 0, scale: 0 }}
+                       whileInView={{ opacity: 1, scale: 1 }}
+                       transition={{ delay: 0.3 + i * 0.1 }}
+                       className="fill-current"
+                    >
+                       ★
+                    </motion.div>
+                  ))}
+               </div>
+
+               <blockquote className="text-xl md:text-2xl lg:text-3xl text-gray-200 font-light leading-relaxed italic">
+                 "Beyond Bricks craftsmanship is unparalleled, and their dedication to delivering outstanding service is evident in every detail. From start to finish, Beyond Bricks exhibited professionalism and effective communication. They not only met my expectations but also provided innovative solutions."
+               </blockquote>
+
+               <div className="pt-12">
+                  <div className="w-16 h-16 rounded-full bg-accent-gold mx-auto flex items-center justify-center text-primary-dark font-black text-2xl mb-6 shadow-[0_10px_30px_rgba(244,185,66,0.3)]">
+                    O
+                  </div>
+                  <h4 className="text-white font-black text-xl md:text-2xl uppercase tracking-tighter">Olusegun Yemisi</h4>
+                  <p className="text-accent-gold text-xs font-bold uppercase tracking-[0.3em] mt-2">Real Estate Investor</p>
+               </div>
+            </motion.div>
+        </div>
+      </section>
+
       {/* Selected Works */}
       <section className="py-32 bg-secondary-dark/30 relative z-10 text-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-800/40">
         <SplitTextReveal text="SELECTED WORKS" className="text-4xl md:text-5xl font-bold uppercase mb-24 flex justify-center text-center text-accent-gold tracking-tight" />
@@ -362,52 +443,7 @@ const PortfolioPage = () => {
 
 
       {/* Contact Section */}
-      <section className="py-24 lg:py-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: { opacity: 0, scale: 0.9, y: 30 },
-            visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-          }}
-        >
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase mb-12 tracking-wide">
-            Let's Build <br /> 
-            <motion.span 
-              className="text-accent-gold inline-block"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-            >
-              Together
-            </motion.span>
-          </h2>
-        </motion.div>
-        
-        <motion.div 
-          className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 text-xl font-medium"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
-          }}
-        >
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="flex items-center gap-3 hover:text-accent-gold transition-colors cursor-pointer group">
-            <MapPin className="text-accent-gold group-hover:-translate-y-2 transition-transform duration-300" size={28} />
-            <span className="font-light tracking-wide">Lagos, Nigeria</span>
-          </motion.div>
-          <motion.a variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} href="mailto:info@beyondbricks.com" className="flex items-center gap-3 hover:text-accent-gold transition-colors group">
-            <Mail className="text-accent-gold group-hover:-translate-y-2 transition-transform duration-300" size={28} />
-            <span className="font-light tracking-wide">info@beyondbricks.com</span>
-          </motion.a>
-          <motion.a variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} href="tel:+2348122497729" className="flex items-center gap-3 hover:text-accent-gold transition-colors group">
-            <Phone className="text-accent-gold group-hover:-translate-y-2 transition-transform duration-300" size={28} />
-            <span className="font-light tracking-wide">+234 812 249 7729</span>
-          </motion.a>
-        </motion.div>
-      </section>
+      <CTA />
 
       {/* Showreel Modal */}
       <AnimatePresence>

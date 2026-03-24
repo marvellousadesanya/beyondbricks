@@ -18,23 +18,23 @@ const Services = () => {
     {
       icon: <ClipboardList size={40} />,
       index: "01 /",
-      title: "Construction Planning",
+      title: "Construction Design",
       description:
-        "Comprehensive planning services that lay the foundation for successful project execution. We analyze every detail, from feasibility studies to resource allocation, ensuring your project starts on solid ground.",
+        "We deliver end-to-end construction solutions across residential, commercial, and industrial sectors. From concept development to final execution, our designs prioritize durability, functionality, and modern aesthetics.",
     },
     {
       icon: <Settings size={40} />,
       index: "02 /",
       title: "Project Management",
       description:
-        "End-to-end project management that keeps your construction on schedule and within budget. Our experienced team coordinates all aspects of construction, ensuring seamless execution and quality control.",
+        "Our project management approach ensures seamless coordination from start to finish. We oversee planning, resource allocation, and execution, ensuring projects are delivered on time, within budget, and to specification.",
     },
     {
       icon: <Wrench size={40} />,
       index: "03 /",
-      title: "Building Maintenance",
+      title: "Site Supervision",
       description:
-        "Professional maintenance services to preserve and enhance your property's value. From routine inspections to repairs and renovations, we ensure your building remains in optimal condition.",
+        "We are highly detail-oriented supervisors. We work with contractors to determine needs, develop timelines, and oversee execution. Safety and integrity remain top priorities.",
     },
   ];
 
@@ -61,10 +61,10 @@ const Services = () => {
     >
       {/* Background Parallax Text */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.03] flex flex-col justify-center space-y-10 md:space-y-20">
-        <motion.h1 style={{ x: bgX1 }} className="text-[6rem] md:text-[20rem] font-bold text-white whitespace-nowrap uppercase tracking-tighter">
+        <motion.h1 style={{ x: bgX1 }} className="text-[5rem] md:text-[14rem] font-bold text-white whitespace-nowrap uppercase tracking-tighter">
           EXCELLENCE INNOVATION
         </motion.h1>
-        <motion.h1 style={{ x: bgX2, WebkitTextStroke: '1px white' }} className="text-[6rem] md:text-[20rem] font-black text-transparent whitespace-nowrap uppercase tracking-tighter">
+        <motion.h1 style={{ x: bgX2, WebkitTextStroke: '1px white' }} className="text-[5rem] md:text-[14rem] font-black text-transparent whitespace-nowrap uppercase tracking-tighter">
           CONSTRUCTION EXPERTISE
         </motion.h1>
       </div>
@@ -78,7 +78,7 @@ const Services = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight">
+            <h2 className="text-2xl md:text-4xl font-bold mb-6 text-white uppercase tracking-tight">
               Our <span className="text-accent-gold">Expertise</span>
             </h2>
             <div className="w-24 h-1 bg-accent-gold mx-auto mb-10 origin-left" />

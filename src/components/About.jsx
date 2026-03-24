@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { ArrowRight, Award, Users, Wrench } from "lucide-react";
+import { ArrowRight, Award, Users, Shield, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import aboutImage from "../assets/who-we-are.webp";
@@ -17,16 +17,21 @@ const About = () => {
 
   const stats = [
     { icon: <Award size={24} />, value: "10+", label: "Years Experience" },
-    { icon: <Users size={24} />, value: "200+", label: "Completed Projects" },
-    { icon: <Wrench size={24} />, value: "100%", label: "Client Satisfaction" },
+    { icon: <Users size={24} />, value: "50+", label: "Projects Completed" },
+    { icon: <Shield size={24} />, value: "100%", label: "Safety Rating" },
+    { icon: <TrendingUp size={24} />, value: "Nigeria", label: "Nationwide Impact" },
   ];
 
   return (
     <section 
       id="about" 
       ref={ref}
-      className="py-32 md:py-48 bg-primary-dark relative z-10 overflow-hidden"
+      className="py-32 md:py-48 bg-[#111] relative z-10 overflow-hidden"
     >
+      {/* Blueprint Grid Background */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(#f4b942 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }} />
+      
       <motion.div 
         style={{ opacity }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
@@ -60,24 +65,26 @@ const About = () => {
             />
 
             {/* Gold badge with rotating shimmer */}
-            <motion.div
-              initial={{ scale: 0, rotate: -10 }}
-              whileInView={{ scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.8 }}
-              className="absolute -bottom-10 -right-10 bg-accent-gold text-primary-dark p-10 md:p-12 shadow-[0_30px_60px_rgba(244,185,66,0.2)] hidden md:block"
-            >
-              <p className="text-6xl font-black tracking-tight leading-none mb-2">10+</p>
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.3em] leading-tight">Years Building <br /> Excellence</p>
-              <div
-                className="absolute inset-0 pointer-events-none opacity-20"
-                style={{
-                  background: "linear-gradient(105deg, transparent 40%, white 50%, transparent 60%)",
-                  backgroundSize: "200% 100%",
-                  animation: "shimmer 3s linear infinite",
-                }}
-              />
-            </motion.div>
+          
+
+            {/* Premium Stats Grid - Moved here under image */}
+            <div className="grid grid-cols-2 gap-4 mt-12 md:mt-16">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="bg-white/[0.03] backdrop-blur-xl border border-white/5 p-5 md:p-6 rounded-2xl hover:border-accent-gold/40 transition-all duration-500 group relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-1 bg-accent-gold/0 group-hover:bg-accent-gold/40 transition-all" />
+                  <div className="text-accent-gold mb-3 group-hover:scale-110 transition-transform duration-500 scale-75 md:scale-100 origin-left">{stat.icon}</div>
+                  <p className="text-xl md:text-2xl font-black text-white mb-1 tracking-tighter group-hover:text-accent-gold transition-colors">{stat.value}</p>
+                  <p className="text-[0.5rem] md:text-[0.6rem] text-gray-500 uppercase font-bold tracking-[0.2em]">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           {/* Right side – Content with word-by-word reveal style */}
@@ -88,37 +95,31 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h2 className="text-4xl md:text-6xl font-bold mb-8 text-white uppercase tracking-tight">
-                Who <span className="text-accent-gold">We Are</span>
-              </h2>
-              <div className="w-20 h-1 bg-accent-gold mb-12 origin-left" />
+              <div className="relative mb-12">
+                <h2 className="text-[3.5rem] md:text-[6rem] font-black text-white/5 absolute -top-10 -left-1 md:-top-16 md:-left-4 uppercase tracking-tighter leading-none select-none">
+                  BEYOND
+                </h2>
+                <h2 className="text-3xl md:text-5xl font-bold text-white uppercase tracking-tight relative z-10">
+                  Who <span className="text-accent-gold">We Are</span>
+                </h2>
+                <div className="w-20 h-1 bg-accent-gold mt-6 origin-left" />
+              </div>
               
               <div className="space-y-6">
-                <p className="text-lg md:text-xl font-light text-gray-200 leading-relaxed">
-                  BeyondBricks serves as a <span className="text-accent-gold font-medium">leading force</span> in the Lagos construction industry. We are a collective of elite professionals committed to structural perfection.
+                <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                  Beyond Bricks Construction is a leading construction firm specializing in residential, commercial, and industrial developments across Nigeria. We transform ideas into <span className="text-accent-gold font-medium">durable, high-performing structures</span> that stand the test of time.
                 </p>
-                <p className="text-base text-gray-400 font-light leading-relaxed">
-                  Fueled by our commitment to excellence, we go the extra mile to ensure every client's vision is brought to life with meticulous precision. Whether it's a massive corporate development or a bespoke private structure, our standard remains unwavering.
+                <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                  At Beyond Bricks Construction, we combine technical expertise with strategic project execution to deliver outstanding results. With over a decade of industry experience, our team has successfully handled diverse construction projects, consistently meeting the highest standards of safety, quality, and efficiency.
+                </p>
+                <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                  We pride ourselves on our ability to translate client visions into functional, sustainable, and aesthetically exceptional structures while maintaining strict timelines and budgets.
                 </p>
               </div>
             </motion.div>
 
-            {/* Premium Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className="bg-secondary-dark/40 border border-white/5 p-6 rounded-2xl hover:border-accent-gold/40 transition-all duration-500 group"
-                >
-                  <div className="text-accent-gold mb-4 group-hover:scale-110 transition-transform duration-500 group-hover:rotate-6">{stat.icon}</div>
-                  <p className="text-2xl font-bold text-white mb-1 tracking-tighter">{stat.value}</p>
-                  <p className="text-[0.6rem] text-gray-500 uppercase font-bold tracking-[0.3em]">{stat.label}</p>
-                </motion.div>
-              ))}
+            <div className="mt-12 md:mt-20 pt-8 border-t border-white/5">
+              {/* Stats moved out of here */}
             </div>
 
             <motion.div 

@@ -38,7 +38,7 @@ const Projects = () => {
             transition={{ duration: 0.8 }}
             className="md:max-w-2xl px-4 md:px-0"
           >
-            <h2 className="text-3xl md:text-6xl font-bold mb-6 text-white uppercase tracking-tight leading-none">
+            <h2 className="text-2xl md:text-4xl font-bold mb-6 text-white uppercase tracking-tight leading-none">
               Selected <span className="text-accent-gold">Landmarks</span>
             </h2>
             <div className="w-16 md:w-24 h-1 bg-accent-gold mb-8 md:mb-12 origin-left" />

@@ -20,10 +20,10 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", href: "/#home", isSection: true },
-    { name: "About", href: "/#about", isSection: true },
+    { name: "About Us", href: "/#about", isSection: true },
     { name: "Portfolio", href: "/portfolio", isSection: false },
     { name: "Projects", href: "/projects", isSection: false },
-    { name: "Contact", href: "/contact", isSection: false },
+    
   ];
 
   const handleNavClick = (e, href, isSection) => {
@@ -138,7 +138,7 @@ const Navbar = () => {
                   transition={{ delay: i * 0.1 }}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href, link.isSection)}
-                  className="text-4xl font-bold text-white uppercase tracking-tighter hover:text-accent-gold"
+                  className="text-3xl font-bold text-white uppercase tracking-tighter hover:text-accent-gold"
                 >
                   {link.name}
                 </motion.a>
