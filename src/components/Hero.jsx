@@ -124,41 +124,48 @@ const Hero = () => {
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5.5rem] font-bold text-white leading-[0.9] uppercase tracking-tighter">
             <div className="flex flex-wrap justify-center overflow-hidden">
-              {buildingLetters.map((letter, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={isLoaded ? { y: 0, opacity: 1 } : {}}
-                  transition={{ duration: 1.2, delay: 0.6 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="inline-block"
-                >
-                  {letter}
-                </motion.span>
-              ))}
-              <span className="w-8 md:w-10" />
-              {beyondLetters.map((letter, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={isLoaded ? { y: 0, opacity: 1 } : {}}
-                  transition={{ duration: 1.2, delay: 1.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="inline-block text-accent-gold"
-                >
-                  {letter}
-                </motion.span>
-              ))}
-              <span className="w-8 md:w-10" />
-              {expectationsLetters.map((letter, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={isLoaded ? { y: 0, opacity: 1 } : {}}
-                  transition={{ duration: 1.2, delay: 1.6 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="inline-block"
-                >
-                  {letter}
-                </motion.span>
-              ))}
+              {/* Line 1: BEYOND BUILDING */}
+              <div className="flex flex-wrap justify-center items-center w-full lg:w-auto mb-2 lg:mb-0">
+                {beyondLetters.map((letter, i) => (
+                  <motion.span
+                    key={`beyond-${i}`}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={isLoaded ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 1.2, delay: 0.6 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-block text-accent-gold"
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+                <span className="w-6 md:w-8" />
+                {buildingLetters.map((letter, i) => (
+                  <motion.span
+                    key={`building-${i}`}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={isLoaded ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 1.2, delay: 1.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-block"
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+                <span className="hidden lg:block w-8 md:w-10" />
+              </div>
+
+              {/* Line 2: EXPECTATIONS */}
+              <div className="flex flex-wrap justify-center items-center w-full lg:w-auto">
+                {expectationsLetters.map((letter, i) => (
+                  <motion.span
+                    key={`expectations-${i}`}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={isLoaded ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 1.2, delay: 1.6 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-block"
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </div>
             </div>
           </h1>
 

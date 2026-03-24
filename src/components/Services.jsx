@@ -157,10 +157,10 @@ const Services = () => {
              </div>
 
              <div className="relative z-10 max-w-4xl mx-auto space-y-6 md:space-y-10">
-                <h3 className="text-2xl md:text-5xl font-bold text-white uppercase tracking-tight">
+                <h3 className="text-md font-bold text-white uppercase tracking-tight">
                   Ready to start your <span className="text-accent-gold">Legacy?</span>
                 </h3>
-                <p className="text-base md:text-lg text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
+                <p className="text-base text-sm text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
                   Let’s discuss how our services can bring your vision into reality. Schedule a consultation session today.
                 </p>
                 
@@ -168,7 +168,7 @@ const Services = () => {
                    whileHover={{ scale: 1.05 }}
                    whileTap={{ scale: 0.95 }}
                    onClick={() => navigate("/contact")}
-                   className="mt-10 bg-accent-gold text-primary-dark px-16 py-6 font-black uppercase tracking-widest text-sm shadow-[0_20px_50px_rgba(244,185,66,0.2)]"
+                   className="mt-10 bg-accent-gold text-primary-dark px-16 py-6 font-black uppercase tracking-widest text-[10px] shadow-[0_20px_50px_rgba(244,185,66,0.2)]"
                 >
                   Schedule consultation
                 </motion.button>

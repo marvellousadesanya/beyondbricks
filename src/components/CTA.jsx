@@ -29,7 +29,7 @@ const CTA = () => {
             visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
           }}
         >
-          <h2 className="text-5xl md:text-8xl font-black uppercase mb-16 tracking-tighter leading-none">
+          <h2 className="text-[40px] font-black uppercase mb-16 tracking-tighter leading-none">
             Let's Build <br /> 
             <span className="text-accent-gold">Together</span>
           </h2>

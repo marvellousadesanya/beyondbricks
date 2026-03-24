@@ -108,7 +108,7 @@ const WorkParallaxItem = ({ work, index }) => {
         >
           0{index + 1} <span className="mx-2 text-white/40">/</span> {work.category}
         </motion.p>
-        <h3 className="text-3xl lg:text-5xl font-bold uppercase flex flex-col gap-4 group-hover:text-accent-gold transition-colors duration-400">
+        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase flex flex-col gap-4 group-hover:text-accent-gold transition-colors duration-400">
           {work.title}
         </h3>
         <p className="text-gray-400 text-base lg:text-lg leading-relaxed font-light mt-4">
@@ -211,9 +211,9 @@ const PortfolioPage = () => {
           variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
         >
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}>
-            <h1 className="text-5xl md:text-7xl lg:text-[10rem] font-bold uppercase tracking-tighter leading-none text-white select-none">
-              Beyond<br />
-              <span className="text-accent-gold">Bricks</span>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none text-white select-none">
+              Beyond  
+              <span className="text-accent-gold"> Bricks</span>
             </h1>
           </motion.div>     
 
@@ -248,7 +248,7 @@ const PortfolioPage = () => {
             viewport={{ once: true }}
             className="space-y-6 md:space-y-10"
           >
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight leading-tight">
               Meet our <br className="hidden md:block" />
               <span className="text-accent-gold">CEO & Founder</span>
             </h2>
@@ -266,10 +266,10 @@ const PortfolioPage = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + (i * 0.1) }}
-                  className="bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-accent-gold/20 transition-all group"
+                  className="bg-white/5 p-5 rounded-2xl border border-white/5 hover:border-accent-gold/20 transition-all group"
                 >
-                  <div className="text-3xl font-bold text-accent-gold mb-1 group-hover:scale-105 transition-transform">{stat.value}</div>
-                  <div className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">{stat.label}</div>
+                  <div className="text-xl md:text-2xl font-bold text-accent-gold mb-1 group-hover:scale-105 transition-transform">{stat.value}</div>
+                  <div className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 font-bold">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -334,7 +334,7 @@ const PortfolioPage = () => {
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true }}
             >
-               <div className="aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+               <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
                   <img src={projects[1]?.thumbnail || projects[0].thumbnail} alt="Mission in action" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
                </div>
             </motion.div>
@@ -384,8 +384,8 @@ const PortfolioPage = () => {
                    viewport={{ once: true }}
                    className="bg-accent-gold p-8 md:p-16 rounded-[2rem] md:rounded-[3rem] shadow-2xl relative overflow-hidden group"
                 >
-                  <div className="absolute -top-5 md:-top-10 -right-5 md:-right-10 text-[6rem] md:text-[10rem] font-black text-black/5 select-none transition-transform group-hover:scale-110 duration-700">24</div>
-                  <h3 className="text-primary-dark text-3xl md:text-5xl font-black uppercase mb-8 relative z-10">Company History</h3>
+                  <div className="absolute -top-5 md:-top-10 -right-5 md:-right-10 text-[4rem] md:text-[7rem] font-black text-black/5 select-none transition-transform group-hover:scale-110 duration-700">24</div>
+                  <h3 className="text-primary-dark text-2xl md:text-4xl font-black uppercase mb-8 relative z-10">Company History</h3>
                   <p className="text-primary-dark/80 text-lg md:text-xl font-medium leading-relaxed relative z-10">
                     Established in 2000, we have worked on numerous projects from residential homes to commercial buildings across Nigeria and beyond. We also have a lot of major ongoing projects like the Contessina, Project F01, and The Malok Hotel.
                   </p>
@@ -405,7 +405,7 @@ const PortfolioPage = () => {
              className="text-center mb-24"
           >
              <p className="text-accent-gold font-bold tracking-[0.4em] uppercase text-[10px] md:text-xs mb-4">Core Competencies</p>
-             <h2 className="text-3xl md:text-7xl font-bold uppercase tracking-tight">Our <span className="text-accent-gold">Services</span></h2>
+             <h2 className="text-2xl md:text-5xl font-bold uppercase tracking-tight">Our <span className="text-accent-gold">Services</span></h2>
              <p className="text-gray-400 mt-6 max-w-2xl mx-auto font-light">At Beyond Bricks Integrated Solutions we provide a wide range of services including:</p>
           </motion.div>
 
@@ -437,7 +437,7 @@ const PortfolioPage = () => {
                 className={`p-10 rounded-3xl border transition-all duration-500 overflow-hidden relative group ${service.accent ? 'bg-accent-gold border-accent-gold h-full' : 'bg-secondary-dark/30 border-white/10 hover:border-accent-gold/50'}`}
               >
                 <div className={`absolute -top-10 -right-10 text-8xl font-black italic select-none opacity-10 transition-transform group-hover:scale-110 ${service.accent ? 'text-primary-dark' : 'text-accent-gold'}`}>0{i+1}</div>
-                <h3 className={`text-xl md:text-2xl font-bold uppercase mb-10 pb-6 border-b leading-tight min-h-[4rem] ${service.accent ? 'text-primary-dark border-primary-dark/20' : 'text-white border-white/5'}`}>{service.title}</h3>
+                <h3 className={`text-lg md:text-xl font-bold uppercase mb-10 pb-6 border-b leading-tight min-h-[4rem] ${service.accent ? 'text-primary-dark border-primary-dark/20' : 'text-white border-white/5'}`}>{service.title}</h3>
                 <ul className="space-y-4">
                   {service.items.map((item, idx) => (
                     <li key={idx} className={`flex items-start gap-4 text-sm md:text-base ${service.accent ? 'text-primary-dark/80 font-medium' : 'text-gray-400 font-light'}`}>
@@ -464,7 +464,7 @@ const PortfolioPage = () => {
                      className="relative"
                   >
                      <span className="text-7xl font-black text-accent-gold/10 absolute -top-12 -left-4 select-none uppercase tracking-tighter">04</span>
-                     <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight relative z-10">Our <span className="text-accent-gold">Team</span></h2>
+                     <h2 className="text-2xl md:text-5xl font-bold uppercase tracking-tight relative z-10">Our <span className="text-accent-gold">Team</span></h2>
                   </motion.div>
                   <p className="text-gray-400 font-light leading-relaxed text-lg italic">
                     Meet the collective excellence behind every structural landmark. Our team combines decades of on-field precision with cutting-edge engineering strategy.
@@ -511,7 +511,7 @@ const PortfolioPage = () => {
                viewport={{ once: true }}
                className="mb-20"
             >
-                <h2 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter mb-4">
+                <h2 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter mb-4">
                   Client <span className="text-accent-gold">Voices</span>
                 </h2>
                <div className="w-24 h-1 bg-accent-gold mx-auto" />
@@ -549,7 +549,7 @@ const PortfolioPage = () => {
                             {[...Array(5)].map((_, idx) => <span key={idx} className="text-sm">★</span>)}
                          </div>
                          
-                         <p className="text-lg md:text-[2rem] text-white font-light text-center leading-tight tracking-tight mb-8 md:mb-12 relative max-w-4xl px-4 md:px-0">
+                         <p className="text-base md:text-2xl text-white font-light text-center leading-tight tracking-tight mb-8 md:mb-12 relative max-w-4xl px-4 md:px-0">
                            <span className="absolute -top-6 md:-top-12 -left-2 md:-left-12 text-[4rem] md:text-[10rem] text-accent-gold/10 font-black italic select-none">"</span>
                            {voice.quote}
                          </p>
@@ -635,3 +635,4 @@ const PortfolioPage = () => {
 };
 
 export default PortfolioPage;
+    
