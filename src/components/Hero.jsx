@@ -122,7 +122,7 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-[5.5rem] font-bold text-white leading-[0.9] uppercase tracking-tighter">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5.5rem] font-bold text-white leading-[0.9] uppercase tracking-tighter">
             <div className="flex flex-wrap justify-center overflow-hidden">
               {buildingLetters.map((letter, i) => (
                 <motion.span

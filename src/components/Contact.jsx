@@ -68,8 +68,8 @@ const Contact = () => {
     {
       icon: <Mail size={24} />,
       title: "Email",
-      content: "info@beyondbricks.com",
-      link: "mailto:info@beyondbricks.com",
+      content: "builder@beyondbricks.ng",
+      link: "mailto:builder@beyondbricks.ng",
     },
     {
       icon: <MapPin size={24} />,

@@ -76,7 +76,7 @@ const Navbar = () => {
         </motion.div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden lg:flex items-center gap-10">
           <ul className="flex items-center gap-8">
             {navLinks.map((link, i) => (
               <motion.li 
@@ -110,7 +110,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-white p-2 hover:bg-white/5 rounded-full transition-colors"
@@ -127,7 +127,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-0 left-0 right-0 h-screen bg-primary-dark z-[-1] flex flex-col justify-center px-8"
+            className="absolute top-0 left-0 right-0 h-screen bg-primary-dark z-[110] flex flex-col justify-center px-8"
           >
             <div className="flex flex-col gap-8">
               {navLinks.map((link, i) => (
