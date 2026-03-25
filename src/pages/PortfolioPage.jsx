@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { projects } from "../data/projects";
 import bamiHero from "../assets/bami-hero.jpg";
-import teamHero from "../assets/beyondbricks-team-hero.jpg";
+import teamHero from "../assets/team-portfolio.png";
 import showreelVideo from "../assets/showreel.mp4";
 import { X } from "lucide-react";
 import CTA from "../components/CTA";
@@ -199,11 +199,11 @@ const PortfolioPage = () => {
           <img 
             src={teamHero} 
             alt="Beyond Bricks Team" 
-            className="w-full h-full object-cover brightness-[0.4] scale-105"
+            className="w-full h-full object-cover brightness-[0.55] scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/60 via-transparent to-primary-dark" />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/65 via-transparent to-primary-dark" />
         </div>
-
+    
         <motion.div 
           className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12"
           initial="hidden"
@@ -414,18 +414,15 @@ const PortfolioPage = () => {
             {[
               { 
                 title: "Civil Engineering Works", 
-                items: ["Building constructions", "Structural designs", "Steel fabrications", "Swimming pools and retaining walls", "Foundation engineering"],
-                accent: true
+                items: ["Building constructions", "Structural designs", "Steel fabrications", "Swimming pools and retaining walls", "Foundation engineering"]
               },
               { 
                 title: "Architectural Works", 
-                items: ["Building designs", "Kitchen cabinets and wardrobes", "Solid core Flushdoors", "Interior decorations"],
-                accent: false
+                items: ["Building designs", "Kitchen cabinets and wardrobes", "Solid core Flushdoors", "Interior decorations"]
               },
               { 
                 title: "Mechanical / Electrical Works", 
-                items: ["Plumbing services provision", "Electrical services provision"],
-                accent: false
+                items: ["Plumbing services provision", "Electrical services provision"]
               }
             ].map((service, i) => (
               <motion.div 
@@ -434,14 +431,14 @@ const PortfolioPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className={`p-10 rounded-3xl border transition-all duration-500 overflow-hidden relative group ${service.accent ? 'bg-accent-gold border-accent-gold h-full' : 'bg-secondary-dark/30 border-white/10 hover:border-accent-gold/50'}`}
+                className="p-10 rounded-3xl border border-white/10 bg-secondary-dark/30 hover:bg-accent-gold hover:border-accent-gold transition-all duration-500 overflow-hidden relative group"
               >
-                <div className={`absolute -top-10 -right-10 text-8xl font-black italic select-none opacity-10 transition-transform group-hover:scale-110 ${service.accent ? 'text-primary-dark' : 'text-accent-gold'}`}>0{i+1}</div>
-                <h3 className={`text-lg md:text-xl font-bold uppercase mb-10 pb-6 border-b leading-tight min-h-[4rem] ${service.accent ? 'text-primary-dark border-primary-dark/20' : 'text-white border-white/5'}`}>{service.title}</h3>
+                <div className="absolute -top-10 -right-10 text-8xl font-black italic select-none opacity-10 transition-transform group-hover:scale-110 text-accent-gold group-hover:text-primary-dark">0{i+1}</div>
+                <h3 className="text-lg md:text-xl font-bold uppercase mb-10 pb-6 border-b border-white/5 group-hover:border-primary-dark/20 leading-tight min-h-[4rem] text-white group-hover:text-primary-dark leading-tight">{service.title}</h3>
                 <ul className="space-y-4">
                   {service.items.map((item, idx) => (
-                    <li key={idx} className={`flex items-start gap-4 text-sm md:text-base ${service.accent ? 'text-primary-dark/80 font-medium' : 'text-gray-400 font-light'}`}>
-                      <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${service.accent ? 'bg-primary-dark' : 'bg-accent-gold'}`} />
+                    <li key={idx} className="flex items-start gap-4 text-sm md:text-base text-gray-400 group-hover:text-primary-dark/80 font-light group-hover:font-medium">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-accent-gold group-hover:bg-primary-dark text-accent-gold" />
                       {item}
                     </li>
                   ))}

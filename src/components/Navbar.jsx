@@ -70,7 +70,7 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Beyond Bricks"
-              className="w-40 md:w-48 h-auto brightness-200 transition-all duration-300 hover:scale-[1.03]"
+              className="w-40 md:w-48 h-auto transition-all duration-300 hover:scale-[1.03]"
             />
           </a>
         </motion.div>
