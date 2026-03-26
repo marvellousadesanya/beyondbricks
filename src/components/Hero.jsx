@@ -118,7 +118,7 @@ const Hero = () => {
             className="flex justify-center mb-6"
           >
             <span className="px-6 py-2 text-[0.7rem] md:text-xs font-bold tracking-[0.4em] uppercase border border-accent-gold/30 text-accent-gold bg-accent-gold/5 backdrop-blur-md rounded-full">
-              Lagos' Premier Construction Firm
+              Lagos' Premium Construction Firm
             </span>
           </motion.div>
 
