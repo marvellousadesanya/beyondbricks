@@ -53,14 +53,16 @@ const Hero = () => {
           loop 
           muted 
           playsInline 
-          className="w-full h-full object-cover brightness-[0.3]"
+          className="w-full h-full object-cover brightness-[0.62]"
         >
           <source
-            src="https://res.cloudinary.com/dggeuuu1n/video/upload/v1761005613/AdobeStock_353539039_Video_4K_Preview_y1qzt4.mp4"
+            src="https://video-previews.elements.envatousercontent.com/h264-video-previews/1a71e4b1-fea6-4e9e-b0de-9b33070bdf6c/7741698.mp4"
             type="video/mp4"
           />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-dark/40 to-primary-dark" />
+        {/* Multi-layer warm cinematic overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-[#1a1000]/25 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
       </motion.div>
 
       {/* Floating Elements for Depth */}
@@ -117,7 +119,7 @@ const Hero = () => {
             custom={0}
             className="flex justify-center mb-6"
           >
-            <span className="px-6 py-2 text-[0.7rem] md:text-xs font-bold tracking-[0.4em] uppercase border border-accent-gold/30 text-accent-gold bg-accent-gold/5 backdrop-blur-md rounded-full">
+            <span className="px-6 py-2 text-[0.7rem] md:text-xs font-bold tracking-[0.4em] uppercase border border-accent-gold text-accent-gold bg-black/40 rounded-full">
               Lagos' Premium Construction Firm
             </span>
           </motion.div>
@@ -172,9 +174,9 @@ const Hero = () => {
           <motion.p 
             variants={textVariants}
             custom={2}
-            className="text-sm sm:text-base md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed mt-6 md:mt-8 px-4"
+            className="text-sm sm:text-base md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed mt-6 md:mt-8 px-4"
           >
-            Delivering structural excellence through <span className="text-white font-medium">precision, innovation, and integrity.</span>
+            Delivering structural excellence through <span className="text-white font-semibold">precision, innovation, and integrity.</span>
           </motion.p>
 
           {/* CTA Group */}
@@ -184,30 +186,30 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12"
           >
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03, boxShadow: "0 0 50px rgba(244,185,66,0.4)" }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => navigate("/contact")}
-              className="group relative overflow-hidden bg-accent-gold text-primary-dark px-10 py-5 font-bold uppercase tracking-widest text-sm transition-all duration-300 shadow-[0_0_40px_rgba(244,185,66,0.2)]"
+              className="group relative overflow-hidden bg-accent-gold text-primary-dark px-12 py-5 font-black uppercase tracking-[0.2em] text-sm transition-all duration-300"
             >
               <span className="relative z-10 flex items-center gap-3">
-                Start Building <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
+                Start Building <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
               </span>
               <motion.div 
                 className="absolute inset-0 bg-white"
                 initial={{ x: "-100%" }}
                 whileHover={{ x: "100%" }}
-                transition={{ duration: 0.5 }}
-                style={{ opacity: 0.2 }}
+                transition={{ duration: 0.4 }}
+                style={{ opacity: 0.15 }}
               />
             </motion.button>
 
             <motion.button
               whileHover={{ x: 5 }}
               onClick={() => navigate("/projects")}
-              className="flex items-center gap-4 text-white hover:text-accent-gold transition-colors duration-300 uppercase tracking-[0.2em] text-xs font-bold"
+              className="group flex items-center gap-4 text-white hover:text-accent-gold transition-colors duration-300 uppercase tracking-[0.2em] text-xs font-bold"
             >
-              <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:border-accent-gold transition-colors">
-                <Play fill="currentColor" size={16} />
+              <div className="w-12 h-12 rounded-full border border-white/40 group-hover:border-accent-gold flex items-center justify-center transition-colors duration-300">
+                <Play fill="currentColor" size={14} />
               </div>
               Explore Our Portfolio
             </motion.button>
