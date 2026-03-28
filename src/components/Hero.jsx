@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import heroBg from "../assets/building-construction-2026-01-28-04-29-33-utc.mp4";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const Hero = () => {
           className="w-full h-full object-cover brightness-[0.62]"
         >
           <source
-            src="https://video-previews.elements.envatousercontent.com/h264-video-previews/1a71e4b1-fea6-4e9e-b0de-9b33070bdf6c/7741698.mp4"
+            src={heroBg}
             type="video/mp4"
           />
         </video>
