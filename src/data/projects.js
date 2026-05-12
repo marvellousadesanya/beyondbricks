@@ -45,6 +45,11 @@ import projectFO14 from "../assets/project-fo1-4.jpg";
 import projectFO15 from "../assets/project-fo1-5.jpg";
 import projectFO16 from "../assets/project-fo1-6.jpg";
 
+import projectMoore1 from "../assets/more1.png";
+import projectMoore2 from "../assets/more2.png";
+import projectMoore3 from "../assets/more3.png";
+import projectMoore4 from "../assets/more4.png";
+
 import project4 from "../assets/project-4.jpeg";
 import project5 from "../assets/project-5.jpeg";
 import project6 from "../assets/project-6.jpeg";
@@ -62,6 +67,15 @@ import project16 from "../assets/project-16.jpeg";
 export const projects = [
   {
     id: 1,
+    title: "Project Moore",
+    category: "Residential",
+    thumbnail: projectMoore1,
+    images: [projectMoore1, projectMoore2, projectMoore3, projectMoore4],
+    description:
+      "A premium residential development showcasing innovative design and exceptional craftsmanship.",
+  },
+  {
+    id: 2,
     title: "Project Marbella",
     category: "Residential",
     thumbnail: projectMarbella1,
@@ -76,7 +90,7 @@ export const projects = [
       "A luxurious residential development showcasing modern architecture and premium finishes.",
   },
   {
-    id: 2,
+    id: 3,
     title: "Contessina",
     category: "Commercial",
     thumbnail: project2,
@@ -85,7 +99,7 @@ export const projects = [
       "A modern commercial space designed for optimal functionality and aesthetic appeal.",
   },
   {
-    id: 3,
+    id: 4,
     title: "Khaf Project",
     category: "Residential",
     thumbnail: khafProject1,
@@ -94,7 +108,7 @@ export const projects = [
       "A contemporary residential project with attention to detail and quality craftsmanship.",
   },
   {
-    id: 4,
+    id: 5,
     title: "Residential Development",
     category: "Commercial",
     thumbnail: residentialDevelopment4,
@@ -110,7 +124,7 @@ export const projects = [
       "A residential development featuring innovative design and sustainable practices.",
   },
   {
-    id: 5,
+    id: 6,
     title: "Ben E",
     category: "Residential",
     thumbnail: projectBenE1,
@@ -125,7 +139,7 @@ export const projects = [
     description: "Elegant residential project combining comfort and style.",
   },
   {
-    id: 6,
+    id: 7,
     title: "Fortend Ventures",
     category: "Industrial",
     thumbnail: projectFortendVentures1,
@@ -140,7 +154,7 @@ export const projects = [
       "Industrial facility built with durability and efficiency in mind.",
   },
   {
-    id: 7,
+    id: 8,
     title: "IX Design",
     category: "Hospitality",
     thumbnail: projectIXDesign1,
@@ -156,7 +170,7 @@ export const projects = [
       "Hospitality project designed to provide exceptional guest experiences.",
   },
   {
-    id: 8,
+    id: 9,
     title: "FO1",
     category: "Institutional",
     thumbnail: projectFO11,
