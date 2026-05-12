@@ -25,7 +25,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: <Youtube size={20} />, href: "https://www.youtube.com/@bamithebuilder", label: "YouTube" },
-    { icon: <Instagram size={20} />, href: "https://www.instagram.com/bamithebuilder?igsh=eHRndXp4cHk1NTR6", label: "Instagram" },
+    { icon: <Instagram size={20} />, href: "https://www.instagram.com/beyondbricks_construction?igsh=ZG1qdjZiMnVybjc2", label: "Instagram" },
   ];
 
   const handleLinkClick = (e, href, isSection) => {

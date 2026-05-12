@@ -18,12 +18,12 @@ function App() {
     // Start exit animation after loading
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-    }, 1800); // Start fade-out at 1.8s
+    }, 400); // Start fade-out at 0.4s
 
     // Remove loading screen completely
     const removeTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 2300); // Remove at 2.3s (after fade-out completes)
+    }, 900); // Remove at 0.9s (after fade-out completes)
 
     return () => {
       clearTimeout(exitTimer);

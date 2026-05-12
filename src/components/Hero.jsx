@@ -53,7 +53,8 @@ const Hero = () => {
           autoPlay 
           loop 
           muted 
-          playsInline 
+          playsInline
+          preload="auto"
           className="w-full h-full object-cover brightness-[0.62]"
         >
           <source
