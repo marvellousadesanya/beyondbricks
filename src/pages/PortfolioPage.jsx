@@ -94,12 +94,21 @@ const WorkParallaxItem = ({ work, index, activeVideoId, onToggleVideo }) => {
          <div className="w-full aspect-[4/3] rounded-xl overflow-hidden shadow-2xl relative block bg-black">
             {isPlaying ? (
               <>
-                <iframe
-                  src={`${work.videoUrl.replace(/\/$/, "")}/embed`}
-                  className="w-full h-full"
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                  title={`${work.title} Video`}
-                />
+                {typeof work.videoUrl === "string" && work.videoUrl.startsWith("http") ? (
+                  <iframe
+                    src={work.videoUrl.replace("www.instagram.com", "ddinstagram.com").replace(/\/$/, "")}
+                    className="w-full h-full"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                    title={`${work.title} Video`}
+                  />
+                ) : (
+                  <video
+                    src={work.videoUrl}
+                    className="w-full h-full object-contain"
+                    controls
+                    autoPlay
+                  />
+                )}
                 <button
                   onClick={(e) => { e.stopPropagation(); onToggleVideo(null); }}
                   className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white hover:bg-accent-gold hover:text-primary-dark transition-all"

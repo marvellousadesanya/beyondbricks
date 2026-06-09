@@ -89,12 +89,21 @@ const ProjectsPage = () => {
                 <div className="aspect-[4/3] w-full overflow-hidden relative bg-black">
                   {activeVideoId === project.id ? (
                     <>
-                      <iframe
-                        src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
-                        className="w-full h-full"
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                        title={`${project.title} Video`}
-                      />
+                      {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
+                        <iframe
+                          src={project.videoUrl.replace("www.instagram.com", "ddinstagram.com").replace(/\/$/, "")}
+                          className="w-full h-full"
+                          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                          title={`${project.title} Video`}
+                        />
+                      ) : (
+                        <video
+                          src={project.videoUrl}
+                          className="w-full h-full object-contain"
+                          controls
+                          autoPlay
+                        />
+                      )}
                       <button
                         onClick={(e) => { e.stopPropagation(); setActiveVideoId(null); }}
                         className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white hover:bg-accent-gold hover:text-primary-dark transition-all"

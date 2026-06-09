@@ -140,13 +140,22 @@ const ProjectDetailPage = () => {
                   Watch in Action
                 </span>
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-accent-gold/10 border border-white/10 bg-secondary-dark">
-                  <iframe
-                    src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
-                    className="w-full h-full"
-                    allowFullScreen
-                    allow="clipboard-write; encrypted-media; picture-in-picture"
-                    title={`${project.title} Video`}
-                  />
+                  {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
+                    <iframe
+                      src={project.videoUrl.replace("www.instagram.com", "ddinstagram.com").replace(/\/$/, "")}
+                      className="w-full h-full"
+                      allowFullScreen
+                      allow="clipboard-write; encrypted-media; picture-in-picture"
+                      title={`${project.title} Video`}
+                    />
+                  ) : (
+                    <video
+                      src={project.videoUrl}
+                      className="w-full h-full object-contain"
+                      controls
+                      autoPlay
+                    />
+                  )}
                 </div>
                 <div className="absolute -bottom-3 -left-3 w-full h-full border border-accent-gold/20 rounded-2xl -z-10" />
               </div>
