@@ -96,7 +96,7 @@ const WorkParallaxItem = ({ work, index, activeVideoId, onToggleVideo }) => {
               <>
                 {typeof work.videoUrl === "string" && work.videoUrl.startsWith("http") ? (
                   <iframe
-                    src={work.videoUrl.replace("www.instagram.com", "ddinstagram.com").replace(/\/$/, "")}
+                    src={`${work.videoUrl.replace(/\/$/, "")}/embed`}
                     className="w-full h-full"
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
                     title={`${work.title} Video`}

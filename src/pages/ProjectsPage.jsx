@@ -91,7 +91,7 @@ const ProjectsPage = () => {
                     <>
                       {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
                         <iframe
-                          src={project.videoUrl.replace("www.instagram.com", "ddinstagram.com").replace(/\/$/, "")}
+                          src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
                           className="w-full h-full"
                           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
                           title={`${project.title} Video`}

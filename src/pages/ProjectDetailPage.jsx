@@ -142,7 +142,7 @@ const ProjectDetailPage = () => {
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-accent-gold/10 border border-white/10 bg-secondary-dark">
                   {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
                     <iframe
-                      src={project.videoUrl.replace("www.instagram.com", "ddinstagram.com").replace(/\/$/, "")}
+                      src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
                       className="w-full h-full"
                       allowFullScreen
                       allow="clipboard-write; encrypted-media; picture-in-picture"
