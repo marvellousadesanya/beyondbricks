@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight, Plus, Play, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { projects } from "../data/projects";
 
 const Projects = () => {
   const navigate = useNavigate();
   const displayedProjects = projects.slice(0, 4);
+  const [activeVideoId, setActiveVideoId] = useState(null);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,26 +81,54 @@ const Projects = () => {
               onClick={() => navigate(`/project/${project.id}`)}
               className="group relative cursor-pointer overflow-hidden rounded-3xl bg-secondary-dark/40"
             >
-              <div className="aspect-[16/10] overflow-hidden relative">
-                <img
-                  src={project.thumbnail}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
-                
-                {/* Modern Hover Reveal */}
-                <div className="absolute inset-0 bg-primary-dark/60 opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-all duration-500 flex items-center justify-center">
-                   <div className="w-24 h-24 rounded-full border border-accent-gold flex items-center justify-center text-accent-gold scale-0 group-hover:scale-100 transition-all duration-500 delay-100">
-                     <Plus size={32} strokeWidth={1} />
-                   </div>
-                </div>
+              <div className="aspect-[16/10] overflow-hidden relative bg-black">
+                {activeVideoId === project.id ? (
+                  <>
+                    <iframe
+                      src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
+                      className="w-full h-full"
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                      title={`${project.title} Video`}
+                    />
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setActiveVideoId(null); }}
+                      className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white hover:bg-accent-gold hover:text-primary-dark transition-all"
+                    >
+                      <X size={14} />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={project.thumbnail}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    />
+                    
+                    {project.videoUrl && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setActiveVideoId(project.id); }}
+                        className="absolute top-4 right-4 z-20 w-14 h-14 rounded-full bg-accent-gold/90 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-accent-gold/30 hover:scale-110 transition-transform cursor-pointer"
+                      >
+                        <Play size={22} className="text-primary-dark ml-1" fill="currentColor" />
+                      </button>
+                    )}
 
-                {/* Category Badge */}
-                <div className="absolute top-6 left-6 z-10">
-                   <span className="bg-white/10 backdrop-blur-md text-white text-[10px] uppercase font-bold tracking-[0.3em] px-4 py-2 border border-white/10 rounded-full">
-                     {project.category}
-                   </span>
-                </div>
+                    {/* Modern Hover Reveal */}
+                    <div className="absolute inset-0 bg-primary-dark/60 opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-all duration-500 flex items-center justify-center">
+                       <div className="w-24 h-24 rounded-full border border-accent-gold flex items-center justify-center text-accent-gold scale-0 group-hover:scale-100 transition-all duration-500 delay-100">
+                         <Plus size={32} strokeWidth={1} />
+                       </div>
+                    </div>
+
+                    {/* Category Badge */}
+                    <div className="absolute top-6 left-6 z-10">
+                       <span className="bg-white/10 backdrop-blur-md text-white text-[10px] uppercase font-bold tracking-[0.3em] px-4 py-2 border border-white/10 rounded-full">
+                         {project.category}
+                       </span>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Info Overlay (Visible or Semi-Visible) */}

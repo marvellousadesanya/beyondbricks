@@ -78,53 +78,81 @@ const ProjectDetailPage = () => {
 
       {/* Main Image Gallery */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pb-40">
-        {/* Featured Image */}
-        <motion.div 
-          className="mb-12 relative"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-        >
-          <div
-            className="relative w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden rounded-2xl cursor-pointer shadow-2xl group"
-            onClick={() => openLightbox(selectedImageIndex)}
+        {/* Featured Image + Video split */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+          {/* Featured Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={selectedImageIndex}
-                initial={{ opacity: 0, filter: "blur(10px)", scale: 1.05 }}
-                animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-                exit={{ opacity: 0, filter: "blur(10px)", scale: 0.95 }}
-                transition={{ duration: 0.5 }}
-                src={project.images[selectedImageIndex]}
-                alt={`${project.title} - Image ${selectedImageIndex + 1}`}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-            </AnimatePresence>
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500 flex items-center justify-center">
-              <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 text-white text-lg font-bold uppercase tracking-widest border border-white/50 px-8 py-3 rounded-full backdrop-blur-md">
-                Click to expand
+            <div
+              className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer shadow-2xl group"
+              onClick={() => openLightbox(selectedImageIndex)}
+            >
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={selectedImageIndex}
+                  initial={{ opacity: 0, filter: "blur(10px)", scale: 1.05 }}
+                  animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+                  exit={{ opacity: 0, filter: "blur(10px)", scale: 0.95 }}
+                  transition={{ duration: 0.5 }}
+                  src={project.images[selectedImageIndex]}
+                  alt={`${project.title} - Image ${selectedImageIndex + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </AnimatePresence>
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500 flex items-center justify-center">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 text-white text-lg font-bold uppercase tracking-widest border border-white/50 px-8 py-3 rounded-full backdrop-blur-md">
+                  Click to expand
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Image Navigation */}
-          {project.images.length > 1 && (
-            <div className="flex items-center justify-between mt-8 text-gray-400 font-medium uppercase tracking-widest text-sm">
-              <button onClick={handlePreviousImage} className="flex items-center gap-3 hover:text-accent-gold transition-colors">
-                <div className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-accent-gold hover:text-black transition-colors"><ChevronLeft size={18} /></div>
-                <span>Previous</span>
-              </button>
-              <span className="text-gray-500">
-                0{selectedImageIndex + 1} <span className="mx-2">/</span> 0{project.images.length}
-              </span>
-              <button onClick={handleNextImage} className="flex items-center gap-3 hover:text-accent-gold transition-colors">
-                <span>Next</span>
-                <div className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-accent-gold hover:text-black transition-colors"><ChevronRight size={18} /></div>
-              </button>
-            </div>
+            {/* Image Navigation */}
+            {project.images.length > 1 && (
+              <div className="flex items-center justify-between mt-6 text-gray-400 font-medium uppercase tracking-widest text-sm">
+                <button onClick={handlePreviousImage} className="flex items-center gap-3 hover:text-accent-gold transition-colors">
+                  <div className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-accent-gold hover:text-black transition-colors"><ChevronLeft size={18} /></div>
+                  <span>Previous</span>
+                </button>
+                <span className="text-gray-500">
+                  0{selectedImageIndex + 1} <span className="mx-2">/</span> 0{project.images.length}
+                </span>
+                <button onClick={handleNextImage} className="flex items-center gap-3 hover:text-accent-gold transition-colors">
+                  <span>Next</span>
+                  <div className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-accent-gold hover:text-black transition-colors"><ChevronRight size={18} /></div>
+                </button>
+              </div>
+            )}
+          </motion.div>
+
+          {/* Project Video */}
+          {project.videoUrl && (
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 text-accent-gold text-xs font-bold uppercase tracking-[0.3em] mb-4">
+                  <span className="w-6 h-px bg-accent-gold/60" />
+                  Watch in Action
+                </span>
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-accent-gold/10 border border-white/10 bg-secondary-dark">
+                  <iframe
+                    src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
+                    className="w-full h-full"
+                    allowFullScreen
+                    allow="clipboard-write; encrypted-media; picture-in-picture"
+                    title={`${project.title} Video`}
+                  />
+                </div>
+                <div className="absolute -bottom-3 -left-3 w-full h-full border border-accent-gold/20 rounded-2xl -z-10" />
+              </div>
+            </motion.div>
           )}
-        </motion.div>
+        </div>
 
         {/* Thumbnail Grid */}
         {project.images.length > 1 && (

@@ -69,6 +69,7 @@ export const projects = [
     id: 1,
     title: "Project Moore",
     category: "Residential",
+    videoUrl: "https://www.instagram.com/reel/DYob7CUCK72/",
     thumbnail: projectMoore1,
     images: [projectMoore1, projectMoore2, projectMoore3, projectMoore4],
     description:
@@ -78,6 +79,7 @@ export const projects = [
     id: 2,
     title: "Project Marbella",
     category: "Residential",
+    videoUrl: "https://www.instagram.com/reel/DJ2BcVcItGs/",
     thumbnail: projectMarbella1,
     images: [
       projectMarbella1,
@@ -93,6 +95,7 @@ export const projects = [
     id: 3,
     title: "Contessina",
     category: "Commercial",
+    videoUrl: "",
     thumbnail: project2,
     images: [project2],
     description:
@@ -102,6 +105,7 @@ export const projects = [
     id: 4,
     title: "Khaf Project",
     category: "Residential",
+    videoUrl: "https://www.instagram.com/reel/DLS6a-VoBvH/",
     thumbnail: khafProject1,
     images: [khafProject1, khafProject2, khafProject3, khafProject4],
     description:
@@ -111,6 +115,7 @@ export const projects = [
     id: 5,
     title: "Residential Development",
     category: "Commercial",
+    videoUrl: "",
     thumbnail: residentialDevelopment4,
     images: [
       residentialDevelopment1,
@@ -127,6 +132,7 @@ export const projects = [
     id: 6,
     title: "Ben E",
     category: "Residential",
+    videoUrl: "https://www.instagram.com/reel/C_ntk_NtiKL/",
     thumbnail: projectBenE1,
     images: [
       projectBenE1,
@@ -142,6 +148,7 @@ export const projects = [
     id: 7,
     title: "Fortend Ventures",
     category: "Industrial",
+    videoUrl: "",
     thumbnail: projectFortendVentures1,
     images: [
       projectFortendVentures1,
@@ -157,6 +164,7 @@ export const projects = [
     id: 8,
     title: "IX Design",
     category: "Hospitality",
+    videoUrl: "",
     thumbnail: projectIXDesign1,
     images: [
       projectIXDesign1,
@@ -173,6 +181,7 @@ export const projects = [
     id: 9,
     title: "FO1",
     category: "Institutional",
+    videoUrl: "",
     thumbnail: projectFO11,
     images: [
       projectFO11,

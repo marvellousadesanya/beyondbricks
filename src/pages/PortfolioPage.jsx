@@ -68,7 +68,7 @@ const CoverImageReveal = ({ src, alt, className, style }) => {
 };
 
 // Work Parallax Component
-const WorkParallaxItem = ({ work, index }) => {
+const WorkParallaxItem = ({ work, index, activeVideoId, onToggleVideo }) => {
   const navigate = useNavigate();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -79,20 +79,49 @@ const WorkParallaxItem = ({ work, index }) => {
   const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
 
+  const isPlaying = activeVideoId === work.id;
+
   return (
     <motion.div 
       ref={ref}
-      onClick={() => navigate(`/project/${work.id}`)}
-      className={`group relative flex flex-col ${index % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-10 lg:gap-20 items-center cursor-pointer`}
+      onClick={() => { if (!isPlaying) navigate(`/project/${work.id}`); }}
+      className={`group relative flex flex-col ${index % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-10 lg:gap-20 items-center ${!isPlaying ? 'cursor-pointer' : ''}`}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
     >
-      <div className="w-full lg:w-3/5">
-        <div className="w-full aspect-[4/3] rounded-xl overflow-hidden shadow-2xl relative block">
-           <CoverImageReveal src={work.thumbnail || work.images[0]} alt={work.title} style={{ y: imgY }} />
-        </div>
-      </div>
+       <div className="w-full lg:w-3/5">
+         <div className="w-full aspect-[4/3] rounded-xl overflow-hidden shadow-2xl relative block bg-black">
+            {isPlaying ? (
+              <>
+                <iframe
+                  src={`${work.videoUrl.replace(/\/$/, "")}/embed`}
+                  className="w-full h-full"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                  title={`${work.title} Video`}
+                />
+                <button
+                  onClick={(e) => { e.stopPropagation(); onToggleVideo(null); }}
+                  className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white hover:bg-accent-gold hover:text-primary-dark transition-all"
+                >
+                  <X size={16} />
+                </button>
+              </>
+            ) : (
+              <>
+                <CoverImageReveal src={work.thumbnail || work.images[0]} alt={work.title} style={{ y: imgY }} />
+                {work.videoUrl && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onToggleVideo(work.id); }}
+                    className="absolute top-6 right-6 z-20 w-14 h-14 rounded-full bg-accent-gold/90 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-accent-gold/30 hover:scale-110 transition-transform cursor-pointer"
+                  >
+                    <Play size={22} className="text-primary-dark ml-1" fill="currentColor" />
+                  </button>
+                )}
+              </>
+            )}
+         </div>
+       </div>
 
       <motion.div 
         className="w-full lg:w-2/5 space-y-4"
@@ -149,6 +178,7 @@ const PortfolioPage = () => {
 
   // Showreel Modal State
   const [showreelOpen, setShowreelOpen] = useState(false);
+  const [activeVideoId, setActiveVideoId] = useState(null);
 
   // Testimonial State
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -580,7 +610,7 @@ const PortfolioPage = () => {
         
         <div className="space-y-32">
           {projects.slice(0, 4).map((work, i) => (
-            <WorkParallaxItem key={work.id} work={work} index={i} />
+            <WorkParallaxItem key={work.id} work={work} index={i} activeVideoId={activeVideoId} onToggleVideo={(id) => setActiveVideoId(id)} />
           ))}
         </div>
       </section>
