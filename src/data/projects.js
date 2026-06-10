@@ -69,7 +69,7 @@ export const projects = [
     id: 1,
     title: "Project Moore",
     category: "Residential",
-    videoUrl: "https://www.instagram.com/reel/DYob7CUCK72/",
+    videoUrl: "https://vimeo.com/1200151717?fl=ip&fe=ec",
     thumbnail: projectMoore1,
     images: [projectMoore1, projectMoore2, projectMoore3, projectMoore4],
     description:
@@ -79,7 +79,7 @@ export const projects = [
     id: 2,
     title: "Project Marbella",
     category: "Residential",
-    videoUrl: "https://www.instagram.com/reel/DJ2BcVcItGs/",
+    videoUrl: "https://vimeo.com/1200157904?fl=tl&fe=ec",
     thumbnail: projectMarbella1,
     images: [
       projectMarbella1,
@@ -105,7 +105,7 @@ export const projects = [
     id: 4,
     title: "Khaf Project",
     category: "Residential",
-    videoUrl: "https://www.instagram.com/reel/DLS6a-VoBvH/",
+    videoUrl: "https://vimeo.com/1200157902?fl=tl&fe=ec",
     thumbnail: khafProject1,
     images: [khafProject1, khafProject2, khafProject3, khafProject4],
     description:
@@ -132,7 +132,7 @@ export const projects = [
     id: 6,
     title: "Ben E",
     category: "Residential",
-    videoUrl: "https://www.instagram.com/reel/C_ntk_NtiKL/",
+    videoUrl: "https://vimeo.com/1200157901?fl=tl&fe=ec",
     thumbnail: projectBenE1,
     images: [
       projectBenE1,

@@ -1,12 +1,35 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Maximize2, Play, X } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Maximize2, Play, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "../data/projects";
 
-const getInstagramThumbnail = (url) => {
-  const match = url.match(/instagram\.com\/(?:reel|p)\/([^/?#&]+)/);
-  return match ? `https://www.instagram.com/p/${match[1]}/media/?size=l` : null;
+const getVideoInfo = (url) => {
+  if (!url) return null;
+
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) {
+    const id = vimeoMatch[1];
+    return {
+      platform: "vimeo",
+      id,
+      embedUrl: `https://player.vimeo.com/video/${id}?autoplay=1&muted=1`,
+      thumbnailUrl: `https://i.vimeocdn.com/video/${id}_640.jpg`,
+    };
+  }
+
+  const igMatch = url.match(/instagram\.com\/(?:reel|p)\/([^/?#&]+)/);
+  if (igMatch) {
+    const id = igMatch[1];
+    return {
+      platform: "instagram",
+      id,
+      embedUrl: `https://www.instagram.com/p/${id}/embed`,
+      thumbnailUrl: `https://www.instagram.com/p/${id}/media/?size=l`,
+    };
+  }
+
+  return { platform: "direct", url };
 };
 
 const ProjectDetailPage = () => {
@@ -15,8 +38,20 @@ const ProjectDetailPage = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isVideoLightboxOpen, setIsVideoLightboxOpen] = useState(false);
+  const [videoThumbnail, setVideoThumbnail] = useState(null);
 
   const project = projects.find((p) => p.id === parseInt(id));
+  const videoInfo = project ? getVideoInfo(project.videoUrl) : null;
+
+  React.useEffect(() => {
+    if (videoInfo?.platform !== "vimeo") return;
+    fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(project.videoUrl)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.thumbnail_url) setVideoThumbnail(data.thumbnail_url);
+      })
+      .catch(() => {});
+  }, [project.videoUrl]);
 
   if (!project) {
     return (
@@ -156,22 +191,20 @@ const ProjectDetailPage = () => {
                   Watch in Action
                 </span>
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-accent-gold/10 border border-white/10 bg-secondary-dark group">
-                  {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
-                    <>
-                      <div className="w-full h-full cursor-pointer" onClick={openVideoLightbox}>
-                        <img
-                          src={getInstagramThumbnail(project.videoUrl)}
-                          alt={`${project.title} Video`}
-                          className="w-full h-full object-cover"
-                          onError={(e) => { e.target.classList.add('hidden'); }}
-                        />
-                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center transition-colors">
-                          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent-gold flex items-center justify-center shadow-2xl shadow-accent-gold/30 transform transition-transform group-hover:scale-110">
-                            <Play size={32} className="text-primary-dark ml-1.5" />
-                          </div>
+                  {videoInfo.platform !== "direct" ? (
+                    <div className="w-full h-full cursor-pointer" onClick={openVideoLightbox}>
+                      <img
+                        src={videoThumbnail || videoInfo.thumbnailUrl}
+                        alt={`${project.title} Video`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => { e.target.classList.add("hidden"); }}
+                      />
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center transition-colors">
+                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent-gold flex items-center justify-center shadow-2xl shadow-accent-gold/30 transform transition-transform group-hover:scale-110">
+                          <Play size={32} className="text-primary-dark ml-1.5" />
                         </div>
                       </div>
-                    </>
+                    </div>
                   ) : (
                     <>
                       <button
@@ -190,25 +223,14 @@ const ProjectDetailPage = () => {
                     </>
                   )}
                 </div>
-                {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") && (
-                  <div className="flex items-center justify-between mt-3">
-                    <a
-                      href={project.videoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-gray-500 hover:text-accent-gold transition-colors uppercase tracking-wider flex items-center gap-1.5"
-                    >
-                      <ExternalLink size={12} />
-                      View on Instagram
-                    </a>
-                    <button
-                      onClick={openVideoLightbox}
-                      className="text-xs text-gray-500 hover:text-accent-gold transition-colors uppercase tracking-wider flex items-center gap-1.5"
-                    >
-                      <Maximize2 size={12} />
-                      Fullscreen
-                    </button>
-                  </div>
+                {videoInfo.platform !== "direct" && (
+                  <button
+                    onClick={openVideoLightbox}
+                    className="text-xs text-gray-500 hover:text-accent-gold transition-colors uppercase tracking-wider flex items-center gap-1.5 mt-3"
+                  >
+                    <Maximize2 size={12} />
+                    Fullscreen
+                  </button>
                 )}
                 <div className="absolute -bottom-3 -left-3 w-full h-full border border-accent-gold/20 rounded-2xl -z-10" />
               </div>
@@ -307,13 +329,13 @@ const ProjectDetailPage = () => {
             </button>
 
             <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-              {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
+              {videoInfo.platform !== "direct" ? (
                 <iframe
-                  src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
+                  src={videoInfo.embedUrl}
                   className="w-full rounded-lg shadow-2xl"
                   style={{ height: '80vh' }}
                   allowFullScreen
-                  allow="clipboard-write; encrypted-media; picture-in-picture"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
                   title={`${project.title} Video`}
                 />
               ) : (
