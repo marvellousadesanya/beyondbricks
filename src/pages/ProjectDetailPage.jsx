@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Maximize2, Play, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "../data/projects";
+
+const getInstagramThumbnail = (url) => {
+  const match = url.match(/instagram\.com\/(?:reel|p)\/([^/?#&]+)/);
+  return match ? `https://www.instagram.com/p/${match[1]}/media/?size=l` : null;
+};
 
 const ProjectDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [isVideoLightboxOpen, setIsVideoLightboxOpen] = useState(false);
 
   const project = projects.find((p) => p.id === parseInt(id));
 
@@ -31,19 +37,29 @@ const ProjectDetailPage = () => {
   const handlePreviousImage = () => setSelectedImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
   const openLightbox = (index) => { setSelectedImageIndex(index); setIsLightboxOpen(true); };
   const closeLightbox = () => setIsLightboxOpen(false);
+  const openVideoLightbox = () => setIsVideoLightboxOpen(true);
+  const closeVideoLightbox = () => setIsVideoLightboxOpen(false);
 
-  // Keyboard navigation for lightbox
+  // Keyboard navigation for lightboxes
   React.useEffect(() => {
-    if (!isLightboxOpen) return;
+    if (!isLightboxOpen && !isVideoLightboxOpen) return;
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") setIsLightboxOpen(false);
-      else if (e.key === "ArrowLeft") handlePreviousImage();
-      else if (e.key === "ArrowRight") handleNextImage();
+      if (e.key === "Escape") {
+        setIsLightboxOpen(false);
+        setIsVideoLightboxOpen(false);
+      } else if (e.key === "ArrowLeft" && isLightboxOpen) {
+        setSelectedImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
+      } else if (e.key === "ArrowRight" && isLightboxOpen) {
+        setSelectedImageIndex((prev) => (prev + 1) % project.images.length);
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
-    return () => { window.removeEventListener("keydown", handleKeyDown); document.body.style.overflow = "unset"; };
-  }, [isLightboxOpen, project.images.length]);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [isLightboxOpen, isVideoLightboxOpen, project.images.length]);
 
   return (
     <div className="pt-20 min-h-screen bg-primary-dark relative">
@@ -139,24 +155,61 @@ const ProjectDetailPage = () => {
                   <span className="w-6 h-px bg-accent-gold/60" />
                   Watch in Action
                 </span>
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-accent-gold/10 border border-white/10 bg-secondary-dark">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-accent-gold/10 border border-white/10 bg-secondary-dark group">
                   {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
-                    <iframe
-                      src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
-                      className="w-full h-full"
-                      allowFullScreen
-                      allow="clipboard-write; encrypted-media; picture-in-picture"
-                      title={`${project.title} Video`}
-                    />
+                    <>
+                      <div className="w-full h-full cursor-pointer" onClick={openVideoLightbox}>
+                        <img
+                          src={getInstagramThumbnail(project.videoUrl)}
+                          alt={`${project.title} Video`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { e.target.classList.add('hidden'); }}
+                        />
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center transition-colors">
+                          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent-gold flex items-center justify-center shadow-2xl shadow-accent-gold/30 transform transition-transform group-hover:scale-110">
+                            <Play size={32} className="text-primary-dark ml-1.5" />
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   ) : (
-                    <video
-                      src={project.videoUrl}
-                      className="w-full h-full object-contain"
-                      controls
-                      autoPlay
-                    />
+                    <>
+                      <button
+                        onClick={openVideoLightbox}
+                        className="absolute top-3 right-3 z-20 bg-black/60 backdrop-blur-sm text-white p-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-accent-gold hover:text-black"
+                        title="View Fullscreen"
+                      >
+                        <Maximize2 size={16} />
+                      </button>
+                      <video
+                        src={project.videoUrl}
+                        className="w-full h-full object-contain"
+                        controls
+                        autoPlay
+                      />
+                    </>
                   )}
                 </div>
+                {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") && (
+                  <div className="flex items-center justify-between mt-3">
+                    <a
+                      href={project.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-gray-500 hover:text-accent-gold transition-colors uppercase tracking-wider flex items-center gap-1.5"
+                    >
+                      <ExternalLink size={12} />
+                      View on Instagram
+                    </a>
+                    <button
+                      onClick={openVideoLightbox}
+                      className="text-xs text-gray-500 hover:text-accent-gold transition-colors uppercase tracking-wider flex items-center gap-1.5"
+                    >
+                      <Maximize2 size={12} />
+                      Fullscreen
+                    </button>
+                  </div>
+                )}
                 <div className="absolute -bottom-3 -left-3 w-full h-full border border-accent-gold/20 rounded-2xl -z-10" />
               </div>
             </motion.div>
@@ -231,6 +284,47 @@ const ProjectDetailPage = () => {
                 0{selectedImageIndex + 1} / 0{project.images.length}
               </div>
             )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Video Lightbox */}
+      <AnimatePresence>
+        {isVideoLightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[9999] bg-black/98 flex items-center justify-center p-4 backdrop-blur-md"
+            onClick={closeVideoLightbox}
+          >
+            <button
+              onClick={closeVideoLightbox}
+              className="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-accent-gold transition-colors z-10 bg-white/5 rounded-full p-3 hover:bg-white/10"
+            >
+              <X size={24} />
+            </button>
+
+            <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+              {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
+                <iframe
+                  src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
+                  className="w-full rounded-lg shadow-2xl"
+                  style={{ height: '80vh' }}
+                  allowFullScreen
+                  allow="clipboard-write; encrypted-media; picture-in-picture"
+                  title={`${project.title} Video`}
+                />
+              ) : (
+                <video
+                  src={project.videoUrl}
+                  className="w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+                  controls
+                  autoPlay
+                />
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
