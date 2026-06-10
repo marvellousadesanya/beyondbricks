@@ -148,7 +148,7 @@ export const projects = [
     id: 7,
     title: "Fortend Ventures",
     category: "Industrial",
-    videoUrl: "",
+    videoUrl: "https://vimeo.com/1200180342?fl=tl&fe=ec",
     thumbnail: projectFortendVentures1,
     images: [
       projectFortendVentures1,
