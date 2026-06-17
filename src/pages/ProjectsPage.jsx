@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Play, X } from "lucide-react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { projects } from "../data/projects";
@@ -35,7 +34,6 @@ const ProjectsPage = () => {
   const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const bgTextX = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const [activeVideoId, setActiveVideoId] = useState(null);
 
   return (
     <div className="pt-20 min-h-screen bg-primary-dark overflow-hidden relative">
@@ -87,51 +85,15 @@ const ProjectsPage = () => {
               >
                 {/* Project Image / Inline Video */}
                 <div className="aspect-[4/3] w-full overflow-hidden relative bg-black">
-                  {activeVideoId === project.id ? (
-                    <>
-                      {typeof project.videoUrl === "string" && project.videoUrl.startsWith("http") ? (
-                        <iframe
-                          src={`${project.videoUrl.replace(/\/$/, "")}/embed`}
-                          className="w-full h-full"
-                          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                          title={`${project.title} Video`}
-                        />
-                      ) : (
-                        <video
-                          src={project.videoUrl}
-                          className="w-full h-full object-contain"
-                          controls
-                          autoPlay
-                        />
-                      )}
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setActiveVideoId(null); }}
-                        className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white hover:bg-accent-gold hover:text-primary-dark transition-all"
-                      >
-                        <X size={14} />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <motion.div className="absolute inset-0 bg-accent-gold z-10 origin-left"
-                        variants={{ hidden: { scaleX: 1 }, visible: { scaleX: 0, transition: { duration: 0.8, delay: (index % 3) * 0.15 + 0.2, ease: "easeInOut" } } }}
-                      />
-                      <img
-                        src={project.thumbnail}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      {project.videoUrl && (
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setActiveVideoId(project.id); }}
-                          className="absolute top-4 right-4 z-20 w-14 h-14 rounded-full bg-accent-gold/90 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-accent-gold/30 hover:scale-110 transition-transform cursor-pointer"
-                        >
-                          <Play size={22} className="text-primary-dark ml-1" fill="currentColor" />
-                        </button>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </>
-                  )}
+                  <motion.div className="absolute inset-0 bg-accent-gold z-10 origin-left"
+                    variants={{ hidden: { scaleX: 1 }, visible: { scaleX: 0, transition: { duration: 0.8, delay: (index % 3) * 0.15 + 0.2, ease: "easeInOut" } } }}
+                  />
+                  <img
+                    src={project.thumbnail}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
 
                 {/* Overlay with project info */}
