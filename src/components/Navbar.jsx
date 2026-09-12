@@ -23,6 +23,7 @@ const Navbar = () => {
     { name: "About Us", href: "/#about", isSection: true },
     { name: "Portfolio", href: "/portfolio", isSection: false },
     { name: "Projects", href: "/projects", isSection: false },
+    { name: "Journal", href: "/journal", isSection: false },
     
   ];
 

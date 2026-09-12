@@ -22,6 +22,18 @@ body {
   color: #ffffff;
 }
 
+.field {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  color: #ffffff;
+  outline: none;
+}
+
+.field::placeholder { color: #6b7280; }
+.field:focus { border-color: #f4b942; }
+
 /* ─────────────────────────────────────────────
    KEYFRAMES
 ───────────────────────────────────────────── */

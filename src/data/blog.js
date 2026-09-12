@@ -1,0 +1,77 @@
+import { projects } from "./projects";
+import { isSupabaseConfigured, supabase } from "../lib/supabase";
+
+export const defaultArticles = [
+  {
+    id: "future-of-luxury-construction",
+    slug: "future-of-luxury-construction",
+    category: "Perspective",
+    title: "The future of luxury construction is already taking shape",
+    excerpt: "What discerning clients should look for as architecture, technology, and craftsmanship begin to speak the same language.",
+    content: "The most compelling spaces are no longer defined by scale alone. They are defined by how naturally every detail works together: the structure, the light, the materials, and the way a room makes people feel.\n\nAt Beyond Bricks, we see luxury as a discipline of restraint. It is the confidence to specify fewer materials, then execute each one with absolute precision. It is the intelligence to plan for how a space will age, not only how it will photograph on completion day.\n\nThe next generation of landmark projects will bring architecture and construction closer together. Clients will expect one accountable partner from first sketch to final finish, with transparency built into every decision. That is the standard we are building toward.",
+    image: projects[1].thumbnail,
+    date: "2025-03-18",
+    readTime: "5 min read",
+    author: "Beyond Bricks",
+  },
+  {
+    id: "building-in-lagos",
+    slug: "building-in-lagos",
+    category: "Field Notes",
+    title: "Building in Lagos: designing for climate, character, and longevity",
+    excerpt: "A considered approach to creating buildings that feel at home in the city and remain exceptional for decades.",
+    content: "Lagos rewards buildings that understand their environment. The best work responds to heat, rain, movement, and the energy of the people who inhabit it. It does not fight the city; it adds to its rhythm.\n\nThat begins with the fundamentals. Orientation, shade, cross-ventilation, material selection, and careful detailing all matter before the first finish is chosen. A well-built space should feel calm because the hard work is hidden in the decisions made early.\n\nOur role is to bring that intelligence to every layer of the build, connecting local knowledge with international standards of execution.",
+    image: projects[3].thumbnail,
+    date: "2025-02-06",
+    readTime: "4 min read",
+    author: "Beyond Bricks",
+  },
+  {
+    id: "materials-that-matter",
+    slug: "materials-that-matter",
+    category: "Craft",
+    title: "Materials that matter: choosing finishes with intention",
+    excerpt: "The quiet details that make a finished project feel considered, enduring, and unmistakably its own.",
+    content: "Material is memory. The grain of a timber handrail, the coolness of stone underfoot, and the way brass catches late afternoon light all become part of how a building is experienced.\n\nGood specification is a conversation between beauty and performance. We look for materials that can carry a room visually, then test them against the realities of daily life: maintenance, climate, touch, and time.\n\nWhen those choices are made with care, a finish does more than complete a space. It gives the project a point of view.",
+    image: projects[7].thumbnail,
+    date: "2025-01-22",
+    readTime: "3 min read",
+    author: "Beyond Bricks",
+  },
+];
+
+const mapArticle = (article) => ({ ...article, date: article.published_at || article.date, readTime: article.read_time || article.readTime });
+
+export const fetchArticles = async ({ includeUnpublished = false } = {}) => {
+  if (!isSupabaseConfigured) return defaultArticles;
+  let query = supabase.from("articles").select("*").order("published_at", { ascending: false });
+  if (!includeUnpublished) query = query.eq("is_published", true);
+  const { data, error } = await query;
+  if (error) throw error;
+  return data.map(mapArticle);
+};
+
+export const createArticle = async (article, userId) => {
+  const { data, error } = await supabase.from("articles").insert({
+    title: article.title,
+    slug: article.slug,
+    category: article.category,
+    excerpt: article.excerpt,
+    content: article.content,
+    image: article.image,
+    read_time: article.readTime,
+    author: "Beyond Bricks",
+    author_id: userId,
+    is_published: true,
+  }).select().single();
+  if (error) throw error;
+  return mapArticle(data);
+};
+
+export const deleteArticle = async (id) => {
+  const { error } = await supabase.from("articles").delete().eq("id", id);
+  if (error) throw error;
+};
+
+export const formatArticleDate = (date) =>
+  new Intl.DateTimeFormat("en-NG", { month: "long", day: "numeric", year: "numeric" }).format(new Date(date));
