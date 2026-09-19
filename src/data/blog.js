@@ -40,7 +40,21 @@ export const defaultArticles = [
   },
 ];
 
-const mapArticle = (article) => ({ ...article, date: article.published_at || article.date, readTime: article.read_time || article.readTime });
+// Pool of project thumbnails to use as fallback blog images
+const fallbackImages = projects.map((p) => p.thumbnail);
+
+const getRandomFallbackImage = (id) => {
+  // Deterministic fallback based on article id so the same article always gets the same image
+  const hash = String(id).split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return fallbackImages[hash % fallbackImages.length];
+};
+
+const mapArticle = (article) => ({
+  ...article,
+  date: article.published_at || article.date,
+  readTime: article.read_time || article.readTime,
+  image: article.image || getRandomFallbackImage(article.id || article.slug || ""),
+});
 
 export const fetchArticles = async ({ includeUnpublished = false } = {}) => {
   if (!isSupabaseConfigured) return defaultArticles;

@@ -60,7 +60,7 @@ const Footer = () => {
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
           {/* Company Info */}
           <div className="space-y-8">
             <h3 className="text-3xl font-bold uppercase tracking-tighter">
@@ -124,19 +124,22 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
+
+            {/* CTA Card — directly under contact details */}
+            <div className="mt-10 bg-secondary-dark/30 p-8 rounded-2xl border border-white/5 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-accent-gold/5 blur-3xl pointer-events-none" />
+              <h4 className="text-white font-bold text-lg mb-5 leading-tight">
+                Ready to break ground on your vision?
+              </h4>
+              <button 
+                onClick={() => navigate("/contact")}
+                className="w-full bg-accent-gold text-primary-dark py-3.5 font-black uppercase tracking-widest text-[0.65rem] hover:bg-white transition-all duration-300 shadow-[0_10px_30px_rgba(244,185,66,0.1)] flex items-center justify-center gap-3"
+              >
+                Consultation <ArrowRight size={14} />
+              </button>
+            </div>
           </div>
 
-          {/* Luxury CTA */}
-          <div className="bg-secondary-dark/30 p-10 rounded-2xl border border-white/5 relative overflow-hidden group">
-             <div className="absolute top-0 right-0 w-24 h-24 bg-accent-gold/5 blur-3xl pointer-events-none" />
-             <h4 className="text-white font-bold text-lg mb-6 leading-tight">Ready to break ground on your vision?</h4>
-             <button 
-               onClick={() => navigate("/contact")}
-               className="w-full bg-accent-gold text-primary-dark py-4 font-black uppercase tracking-widest text-[0.65rem] hover:bg-white transition-all duration-300 shadow-[0_10px_30px_rgba(244,185,66,0.1)] flex items-center justify-center gap-3"
-             >
-               Consultation <ArrowRight size={14} />
-             </button>
-          </div>
         </div>
       </div>
 
