@@ -111,7 +111,7 @@ const FeaturedCard = ({ article }) => (
       to={`/journal/${article.slug}`}
       className="group relative block overflow-hidden"
     >
-      <div className="aspect-[16/9] lg:aspect-[21/10] overflow-hidden relative bg-secondary-dark">
+      <div className="aspect-[3/4] sm:aspect-[16/9] lg:aspect-[21/10] overflow-hidden relative bg-secondary-dark">
         <img
           src={article.image}
           alt={article.title}
@@ -122,7 +122,7 @@ const FeaturedCard = ({ article }) => (
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
 
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12 lg:p-16">
+        <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-8 md:p-12 lg:p-16">
           <div className="max-w-2xl">
             <div className="flex items-center gap-4 mb-5">
               <span className="inline-block bg-accent-gold text-primary-dark text-[0.6rem] uppercase font-black tracking-[0.25em] px-4 py-2">
@@ -134,7 +134,7 @@ const FeaturedCard = ({ article }) => (
               </span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white font-semibold leading-[1.05] tracking-tight mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-semibold leading-[1.05] tracking-tight mb-4">
               {article.title}
             </h2>
 
