@@ -134,11 +134,11 @@ const FeaturedCard = ({ article }) => (
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-semibold leading-[1.05] tracking-tight mb-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-white font-semibold leading-snug tracking-tight mb-3">
               {article.title}
             </h2>
 
-            <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed max-w-xl mb-8 hidden sm:block">
+            <p className="text-gray-300 text-xs sm:text-sm md:text-sm font-light leading-relaxed max-w-xl mb-6 hidden sm:block line-clamp-3">
               {article.excerpt}
             </p>
 
@@ -233,13 +233,13 @@ const JournalIndex = ({ articles }) => {
             </div>
 
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.9] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.02] tracking-tight">
                 Ideas with
                 <br />
                 <span className="text-accent-gold">a foundation.</span>
               </h1>
 
-              <p className="text-gray-400 max-w-md text-base md:text-lg font-light leading-relaxed lg:pb-3">
+              <p className="text-gray-400 max-w-md text-sm md:text-base font-light leading-relaxed lg:pb-2">
                 Perspectives on architecture, construction, and the considered
                 details that turn a project into a lasting legacy.
               </p>
@@ -430,7 +430,7 @@ const ArticleDetail = ({ article, allArticles }) => {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.05] tracking-tight mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
             {article.title}
           </h1>
 
