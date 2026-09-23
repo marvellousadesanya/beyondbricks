@@ -119,7 +119,7 @@ const ProjectDetailPage = () => {
               {project.title}
             </h1>
             {project.description && (
-              <p className="text-gray-400 text-lg md:text-xl font-light max-w-3xl leading-relaxed">
+              <p className="text-gray-400 text-sm md:text-base font-light max-w-3xl leading-relaxed">
                 {project.description}
               </p>
             )}
@@ -162,7 +162,7 @@ const ProjectDetailPage = () => {
 
             {/* Image Navigation */}
             {project.images.length > 1 && (
-              <div className="flex items-center justify-between mt-6 text-gray-400 font-medium uppercase tracking-widest text-sm">
+              <div className="flex items-center justify-between mt-6 text-gray-400 font-medium uppercase tracking-widest text-xs">
                 <button onClick={handlePreviousImage} className="flex items-center gap-3 hover:text-accent-gold transition-colors">
                   <div className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-accent-gold hover:text-black transition-colors"><ChevronLeft size={18} /></div>
                   <span>Previous</span>

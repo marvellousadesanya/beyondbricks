@@ -99,7 +99,7 @@ const Contact = () => {
             Let's <span className="text-accent-gold">Partner</span>
           </h2>
           <div className="w-24 h-1 bg-accent-gold mx-auto mb-10 origin-left" />
-          <p className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed">
+          <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed">
             Ready to break ground on your vision? Contact us today for a consultation and let's craft something legendary.
           </p>
         </motion.div>
@@ -134,7 +134,7 @@ const Contact = () => {
                     <h4 className="text-[0.65rem] uppercase font-bold tracking-[0.4em] text-gray-500 mb-2">
                       {info.title}
                     </h4>
-                    <p className="text-xl text-white font-medium group-hover:text-accent-gold transition-colors">{info.content}</p>
+                    <p className="text-base text-white font-medium group-hover:text-accent-gold transition-colors">{info.content}</p>
                   </div>
                 </motion.a>
               ))}
@@ -165,7 +165,7 @@ const Contact = () => {
                 >
                   <CheckCircle size={80} className="text-accent-gold mx-auto mb-8" />
                   <h4 className="text-white font-bold text-3xl mb-4 uppercase tracking-tight">Inquiry Received</h4>
-                  <p className="text-gray-400 text-lg font-light leading-relaxed">
+                  <p className="text-gray-400 text-sm font-light leading-relaxed">
                     Thank you for your vision. Our structural experts will reach out within 24 hours to schedule your strategy session.
                   </p>
                 </motion.div>

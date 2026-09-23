@@ -80,8 +80,8 @@ const About = () => {
                 >
                   <div className="absolute top-0 left-0 w-full h-1 bg-accent-gold/0 group-hover:bg-accent-gold/40 transition-all" />
                   <div className="text-accent-gold mb-3 group-hover:scale-110 transition-transform duration-500 scale-75 md:scale-100 origin-left">{stat.icon}</div>
-                  <p className="text-xl md:text-2xl font-black text-white mb-1 tracking-tighter group-hover:text-accent-gold transition-colors">{stat.value}</p>
-                  <p className="text-[0.5rem] md:text-[0.6rem] text-gray-500 uppercase font-bold tracking-[0.2em]">{stat.label}</p>
+                  <p className="text-lg md:text-xl font-black text-white mb-1 tracking-tighter group-hover:text-accent-gold transition-colors">{stat.value}</p>
+                  <p className="text-[0.5rem] md:text-[0.55rem] text-gray-500 uppercase font-bold tracking-[0.2em]">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -106,13 +106,13 @@ const About = () => {
               </div>
               
               <div className="space-y-6">
-                <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                <p className="text-xs md:text-sm text-gray-400 font-light leading-relaxed">
                   Beyond Bricks Construction is a leading construction firm specializing in residential, commercial, and industrial developments across Nigeria. We transform ideas into <span className="text-accent-gold font-medium">durable, high-performing structures</span> that stand the test of time.
                 </p>
-                <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                <p className="text-xs md:text-sm text-gray-400 font-light leading-relaxed">
                   At Beyond Bricks Construction, we combine technical expertise with strategic project execution to deliver outstanding results. With over a decade of industry experience, our team has successfully handled diverse construction projects, consistently meeting the highest standards of safety, quality, and efficiency.
                 </p>
-                <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                <p className="text-xs md:text-sm text-gray-400 font-light leading-relaxed">
                   We pride ourselves on our ability to translate client visions into functional, sustainable, and aesthetically exceptional structures while maintaining strict timelines and budgets.
                 </p>
               </div>

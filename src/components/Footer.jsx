@@ -67,7 +67,7 @@ const Footer = () => {
               <span className="text-white">Beyond</span>
               <span className="text-accent-gold"> Bricks</span>
             </h3>
-            <p className="text-gray-400 text-sm font-light leading-relaxed max-w-xs">
+            <p className="text-gray-400 text-xs font-light leading-relaxed max-w-xs">
               Lagos' elite construction firm, engineering structural landmarks through precision and unyielding integrity.
             </p>
             <div className="flex gap-4">
@@ -128,7 +128,7 @@ const Footer = () => {
             {/* CTA Card — directly under contact details */}
             <div className="mt-10 bg-secondary-dark/30 p-8 rounded-2xl border border-white/5 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-24 h-24 bg-accent-gold/5 blur-3xl pointer-events-none" />
-              <h4 className="text-white font-bold text-lg mb-5 leading-tight">
+              <h4 className="text-white font-bold text-sm mb-5 leading-tight">
                 Ready to break ground on your vision?
               </h4>
               <button 

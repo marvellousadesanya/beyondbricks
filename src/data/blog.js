@@ -82,10 +82,104 @@ export const createArticle = async (article, userId) => {
   return mapArticle(data);
 };
 
+export const updateArticle = async (id, article) => {
+  if (!isSupabaseConfigured) {
+    const index = defaultArticles.findIndex((a) => a.id === id);
+    if (index !== -1) {
+      defaultArticles[index] = { ...defaultArticles[index], ...article };
+      return defaultArticles[index];
+    }
+    return { id, ...article };
+  }
+  const updatePayload = {
+    title: article.title,
+    slug: article.slug,
+    category: article.category,
+    excerpt: article.excerpt,
+    content: article.content,
+    image: article.image,
+    read_time: article.readTime,
+  };
+  if (article.is_published !== undefined) {
+    updatePayload.is_published = article.is_published;
+  }
+  const { data, error } = await supabase
+    .from("articles")
+    .update(updatePayload)
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw error;
+  return mapArticle(data);
+};
+
 export const deleteArticle = async (id) => {
   const { error } = await supabase.from("articles").delete().eq("id", id);
   if (error) throw error;
 };
 
+export const compressImage = (file, maxWidth = 1920, quality = 0.85) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL("image/webp", quality);
+        resolve(dataUrl);
+      };
+      img.onerror = () => reject(new Error("Could not process image"));
+    };
+    reader.onerror = () => reject(new Error("Could not read image file"));
+  });
+};
+
+export const uploadArticleImage = async (file) => {
+  if (!file) throw new Error("No file selected");
+
+  // Attempt Supabase storage if available
+  if (isSupabaseConfigured && supabase) {
+    try {
+      const fileExt = file.name.split(".").pop() || "jpg";
+      const cleanFileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+      const filePath = `articles/${cleanFileName}`;
+
+      const { data, error } = await supabase.storage
+        .from("blog-images")
+        .upload(filePath, file, { cacheControl: "3600", upsert: true });
+
+      if (!error && data) {
+        const { data: publicUrlData } = supabase.storage
+          .from("blog-images")
+          .getPublicUrl(filePath);
+        if (publicUrlData?.publicUrl) {
+          return publicUrlData.publicUrl;
+        }
+      }
+    } catch (err) {
+      console.warn("Supabase storage upload fallback to compressed image:", err);
+    }
+  }
+
+  // Reliable fallback: optimized client-side compressed image
+  return await compressImage(file);
+};
+
 export const formatArticleDate = (date) =>
   new Intl.DateTimeFormat("en-NG", { month: "long", day: "numeric", year: "numeric" }).format(new Date(date));
+

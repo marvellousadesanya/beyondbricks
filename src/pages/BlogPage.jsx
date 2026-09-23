@@ -12,6 +12,7 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchArticles, formatArticleDate } from "../data/blog";
+import ArticleRenderer from "../components/ArticleRenderer";
 
 const CATEGORIES = ["All", "Perspective", "Field Notes", "Craft"];
 
@@ -79,7 +80,7 @@ const ArticleCard = ({ article, index }) => (
           {article.title}
         </h2>
 
-        <p className="text-gray-400 text-sm font-light leading-relaxed line-clamp-2">
+        <p className="text-gray-400 text-xs font-light leading-relaxed line-clamp-2">
           {article.excerpt}
         </p>
 
@@ -199,7 +200,7 @@ const JournalIndex = ({ articles }) => {
         <h1 className="text-4xl md:text-5xl text-white font-semibold tracking-tight">
           New stories are on the way.
         </h1>
-        <p className="text-gray-400 mt-5 max-w-md text-lg font-light leading-relaxed">
+        <p className="text-gray-400 mt-5 max-w-md text-sm font-light leading-relaxed">
           Check back soon for the latest perspectives, field notes, and craft
           insights from our studio.
         </p>
@@ -239,7 +240,7 @@ const JournalIndex = ({ articles }) => {
                 <span className="text-accent-gold">a foundation.</span>
               </h1>
 
-              <p className="text-gray-400 max-w-md text-sm md:text-base font-light leading-relaxed lg:pb-2">
+              <p className="text-gray-400 max-w-md text-xs md:text-sm font-light leading-relaxed lg:pb-2">
                 Perspectives on architecture, construction, and the considered
                 details that turn a project into a lasting legacy.
               </p>
@@ -473,30 +474,19 @@ const ArticleDetail = ({ article, allArticles }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="text-xl md:text-2xl text-white/80 leading-relaxed font-light mb-14 pb-14 border-b border-white/10"
+          className="text-base md:text-lg text-white/80 leading-relaxed font-light mb-14 pb-14 border-b border-white/10"
         >
           {article.excerpt}
         </motion.p>
 
-        {/* Content Paragraphs */}
-        <div className="space-y-8">
-          {article.content.split("\n\n").map((paragraph, i) => (
-            <motion.p
-              key={i}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.05,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="text-gray-300 leading-[1.9] font-light text-lg"
-            >
-              {paragraph}
-            </motion.p>
-          ))}
-        </div>
+        {/* Rich Content: Headings, Spacing, Lists, Bold, Quotes */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <ArticleRenderer content={article.content} />
+        </motion.div>
 
         {/* Article Footer Actions */}
         <div className="mt-16 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
@@ -578,7 +568,7 @@ const BlogPage = () => {
         <div className="w-16 h-16 border border-white/10 rounded-full flex items-center justify-center mb-6">
           <X size={24} className="text-gray-500" />
         </div>
-        <p className="text-lg font-light">{error}</p>
+        <p className="text-sm font-light">{error}</p>
       </main>
     );
   const article = slug ? articles.find((item) => item.slug === slug) : null;

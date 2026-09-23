@@ -176,7 +176,7 @@ const Hero = () => {
           <motion.p 
             variants={textVariants}
             custom={2}
-            className="text-sm sm:text-base md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed mt-6 md:mt-8 px-4"
+            className="text-xs sm:text-sm md:text-base text-gray-200 font-light max-w-2xl mx-auto leading-relaxed mt-6 md:mt-8 px-4"
           >
             Delivering structural excellence through <span className="text-white font-semibold">precision, innovation, and integrity.</span>
           </motion.p>

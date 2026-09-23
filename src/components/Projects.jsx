@@ -43,7 +43,7 @@ const Projects = () => {
               Selected <span className="text-accent-gold">Landmarks</span>
             </h2>
             <div className="w-16 md:w-24 h-1 bg-accent-gold mb-8 md:mb-12 origin-left" />
-            <p className="text-sm md:text-lg text-gray-400 font-light leading-relaxed">
+            <p className="text-xs md:text-sm text-gray-400 font-light leading-relaxed">
               Explore our record of high-performance buildings and iconic structural masterpieces delivered across Nigeria.
             </p>
           </motion.div>

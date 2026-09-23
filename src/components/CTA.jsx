@@ -49,21 +49,21 @@ const CTA = () => {
             <div className="w-10 h-10 rounded-full border border-accent-gold/20 flex items-center justify-center text-accent-gold group-hover:bg-accent-gold group-hover:text-primary-dark transition-all duration-300">
               <MapPin size={20} />
             </div>
-            <span className="text-sm md:text-base lg:text-lg font-medium tracking-tight text-gray-300 whitespace-nowrap">Lagos, Nigeria</span>
+            <span className="text-xs md:text-sm lg:text-base font-medium tracking-tight text-gray-300 whitespace-nowrap">Lagos, Nigeria</span>
           </div>
 
           <a href="mailto:builder@beyondbricks.ng" className="flex items-center gap-4 group transition-colors shrink-0">
             <div className="w-10 h-10 rounded-full border border-accent-gold/20 flex items-center justify-center text-accent-gold group-hover:bg-accent-gold group-hover:text-primary-dark transition-all duration-300">
               <Mail size={20} />
             </div>
-            <span className="text-sm md:text-base lg:text-lg font-medium tracking-tight text-gray-300 group-hover:text-accent-gold transition-colors underline decoration-accent-gold/20 underline-offset-8 whitespace-nowrap">builder@beyondbricks.ng</span>
+            <span className="text-xs md:text-sm lg:text-base font-medium tracking-tight text-gray-300 group-hover:text-accent-gold transition-colors underline decoration-accent-gold/20 underline-offset-8 whitespace-nowrap">builder@beyondbricks.ng</span>
           </a>
 
           <a href="tel:+2349072222444" className="flex items-center gap-4 group transition-colors shrink-0">
             <div className="w-10 h-10 rounded-full border border-accent-gold/20 flex items-center justify-center text-accent-gold group-hover:bg-accent-gold group-hover:text-primary-dark transition-all duration-300">
               <Phone size={20} />
             </div>
-            <span className="text-sm md:text-base lg:text-lg font-medium tracking-tight text-gray-300 group-hover:text-accent-gold transition-colors font-bold whitespace-nowrap">+234 907 222 2444</span>
+            <span className="text-xs md:text-sm lg:text-base font-medium tracking-tight text-gray-300 group-hover:text-accent-gold transition-colors font-bold whitespace-nowrap">+234 907 222 2444</span>
           </a>
         </motion.div>
       </div>

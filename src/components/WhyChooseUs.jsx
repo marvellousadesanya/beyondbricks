@@ -72,7 +72,7 @@ const WhyChooseUs = () => {
               The Beyond <span className="text-accent-gold">Edge</span>
             </h2>
             <div className="w-16 md:w-24 h-1 bg-accent-gold mx-auto mb-8 md:mb-10 origin-left" />
-            <p className="text-sm md:text-lg text-gray-400 font-light leading-relaxed max-w-xl mx-auto">
+            <p className="text-xs md:text-sm text-gray-400 font-light leading-relaxed max-w-xl mx-auto">
               We go beyond building structures, we build legacies through unyielding integrity and a commitment to precision.
             </p>
           </motion.div>
@@ -112,7 +112,7 @@ const WhyChooseUs = () => {
               </h3>
 
               {/* Description */}
-              <p className="text-gray-400 leading-relaxed font-light text-sm">
+              <p className="text-gray-400 leading-relaxed font-light text-xs">
                 {reason.description}
               </p>
             </motion.div>
@@ -127,7 +127,7 @@ const WhyChooseUs = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-24 text-center"
         >
-          <p className="text-2xl text-gray-300 mb-10 font-light">
+          <p className="text-base text-gray-300 mb-10 font-light">
             Ready to experience the <span className="text-accent-gold font-bold italic">BeyondBricks</span> difference?
           </p>
           

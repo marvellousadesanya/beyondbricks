@@ -82,7 +82,7 @@ const Services = () => {
               Our <span className="text-accent-gold">Expertise</span>
             </h2>
             <div className="w-24 h-1 bg-accent-gold mx-auto mb-10 origin-left" />
-            <p className="text-base md:text-lg text-gray-400 font-light leading-relaxed">
+            <p className="text-sm md:text-sm text-gray-400 font-light leading-relaxed">
               From initial structural planning to ongoing white-glove maintenance, we provide elite construction solutions tailored for high-stakes projects.
             </p>
           </motion.div>
@@ -119,7 +119,7 @@ const Services = () => {
                 <h3 className="text-xl font-bold text-white uppercase tracking-wide group-hover:text-accent-gold transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-gray-400 leading-relaxed font-light text-sm md:text-base">
+                <p className="text-gray-400 leading-relaxed font-light text-xs md:text-sm">
                   {service.description}
                 </p>
               </div>
@@ -160,7 +160,7 @@ const Services = () => {
                 <h3 className="text-md font-bold text-white uppercase tracking-tight">
                   Ready to start your <span className="text-accent-gold">Legacy?</span>
                 </h3>
-                <p className="text-base text-sm text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
+                <p className="text-xs text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
                   Let’s discuss how our services can bring your vision into reality. Schedule a consultation session today.
                 </p>
                 

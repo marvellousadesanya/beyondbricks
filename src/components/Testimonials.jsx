@@ -82,7 +82,7 @@ const Testimonials = () => {
                     <Star key={i} size={16} className="fill-accent-gold text-accent-gold" />
                   ))}
                 </div>
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-light italic leading-relaxed text-white/90 px-4 md:px-0">
+                <h3 className="text-base md:text-lg lg:text-xl font-light italic leading-relaxed text-white/90 px-4 md:px-0">
                   "{testimonials[activeIndex].text}"
                 </h3>
               </div>
@@ -92,7 +92,7 @@ const Testimonials = () => {
                   {testimonials[activeIndex].name.charAt(0)}
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold uppercase tracking-widest text-white">{testimonials[activeIndex].name}</h4>
+                  <h4 className="text-base font-bold uppercase tracking-widest text-white">{testimonials[activeIndex].name}</h4>
                   <p className="text-accent-gold text-xs uppercase tracking-[0.3em] font-medium mt-1">{testimonials[activeIndex].role}</p>
                 </div>
               </div>
